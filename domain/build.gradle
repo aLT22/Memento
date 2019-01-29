@@ -1,0 +1,7 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+apply from: 'scripts/core.gradle'
+
+sourceCompatibility = Versions.compatibility
+targetCompatibility = Versions.compatibility

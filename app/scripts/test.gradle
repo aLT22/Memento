@@ -1,0 +1,12 @@
+dependencies {
+    /**
+     * Unit tests
+     * */
+    testImplementation Dependencies.jUnit
+
+    /**
+     * Android tests
+     * */
+    androidTestImplementation Dependencies.runner
+    androidTestImplementation Dependencies.espresso
+}

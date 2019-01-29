@@ -1,0 +1,27 @@
+dependencies {
+    /**
+     * FileTree
+     * */
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    /**
+     * Additional modules
+     * */
+    implementation project(Modules.data)
+    implementation project(Modules.domain)
+
+    /**
+     * Kotlin
+     * */
+    implementation Dependencies.kotlin
+
+    /**
+     * DI (Koin)
+     * */
+    implementation Dependencies.koins
+
+    /**
+     * Coroutines
+     * */
+    implementation Dependencies.coroutines
+}

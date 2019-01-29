@@ -1,0 +1,5 @@
+dependencies {
+    implementation Dependencies.jetPack
+
+    implementation Dependencies.navigationJetPack
+}

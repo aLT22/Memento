@@ -1,0 +1,22 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion Versions.compileData
+    defaultConfig {
+        minSdkVersion Versions.minSdkData
+        targetSdkVersion Versions.targetSdkData
+        versionCode Versions.versionCodeData
+        versionName Versions.versionNameData
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(Versions.proguardData), Versions.proguardRulesData
+        }
+    }
+
+}
+
+apply from: 'scripts/core.gradle'

@@ -1,0 +1,52 @@
+package com.bytebuilding.memento.utils
+
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.os.Build
+import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
+
+@SuppressLint("ObsoleteSdkInt")
+inline fun <reified T : Any> AppCompatActivity.launchActivity(
+        requestCode: Int = -1,
+        options: Bundle? = null,
+        noinline init: Intent.() -> Unit = {}) {
+
+    val intent = newIntent<T>()
+    intent.init()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        startActivityForResult(intent, requestCode, options)
+    } else {
+        startActivityForResult(intent, requestCode)
+    }
+}
+
+@SuppressLint("ObsoleteSdkInt")
+inline fun <reified T : Any> AppCompatActivity.launchActivityAndFinishCurrent(
+        requestCode: Int = -1,
+        options: Bundle? = null,
+        noinline init: Intent.() -> Unit = {}) {
+
+    val intent = newIntent<T>()
+    intent.init()
+    this.finish()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        startActivityForResult(intent, requestCode, options)
+    } else {
+        startActivityForResult(intent, requestCode)
+    }
+}
+
+fun AppCompatActivity.hideKeyboard() {
+    val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    //Find the currently focused view, so we can grab the correct window token from it.
+    var view = this.currentFocus
+    //If no view currently has focus, create a new one, just so we can grab a window token from it
+    if (view == null) {
+        view = View(this)
+    }
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
+}
