@@ -7,13 +7,21 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import com.bytebuilding.memento.R
 
+/**
+ * Launch another activity
+ * */
 @SuppressLint("ObsoleteSdkInt")
 inline fun <reified T : Any> AppCompatActivity.launchActivity(
-        requestCode: Int = -1,
-        options: Bundle? = null,
-        noinline init: Intent.() -> Unit = {}) {
+    requestCode: Int = -1,
+    options: Bundle? = null,
+    noinline init: Intent.() -> Unit = {}
+) {
 
     val intent = newIntent<T>()
     intent.init()
@@ -26,9 +34,10 @@ inline fun <reified T : Any> AppCompatActivity.launchActivity(
 
 @SuppressLint("ObsoleteSdkInt")
 inline fun <reified T : Any> AppCompatActivity.launchActivityAndFinishCurrent(
-        requestCode: Int = -1,
-        options: Bundle? = null,
-        noinline init: Intent.() -> Unit = {}) {
+    requestCode: Int = -1,
+    options: Bundle? = null,
+    noinline init: Intent.() -> Unit = {}
+) {
 
     val intent = newIntent<T>()
     intent.init()
@@ -39,7 +48,13 @@ inline fun <reified T : Any> AppCompatActivity.launchActivityAndFinishCurrent(
         startActivityForResult(intent, requestCode)
     }
 }
+/**
+ * Launch another activity
+ * */
 
+/**
+ * Keyboard options
+ * */
 fun AppCompatActivity.hideKeyboard() {
     val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     //Find the currently focused view, so we can grab the correct window token from it.
@@ -50,3 +65,35 @@ fun AppCompatActivity.hideKeyboard() {
     }
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
+/**
+ * Keyboard options
+ * */
+
+/**
+ * Toolbar/ActionBar
+ * */
+fun AppCompatActivity.setUpToolbar(
+    toolbar: Toolbar,
+    @ColorRes toolbarColor: Int = R.color.colorPrimary,
+    title: CharSequence,
+    @ColorRes titleColor: Int = R.color.colorWhite,
+    subtitle: CharSequence? = null,
+    @ColorRes subtitleColor: Int = R.color.colorWhite
+): Toolbar {
+    toolbar.apply {
+        setBackgroundColor(ContextCompat.getColor(this@setUpToolbar, toolbarColor))
+
+        setTitle(title)
+        setTitleTextColor(ContextCompat.getColor(this@setUpToolbar, titleColor))
+
+        subtitle?.let {
+            setSubtitle(subtitle)
+            setSubtitleTextColor(ContextCompat.getColor(this@setUpToolbar, subtitleColor))
+        }
+    }
+
+    return toolbar
+}
+/**
+ * Toolbar/ActionBar
+ * */

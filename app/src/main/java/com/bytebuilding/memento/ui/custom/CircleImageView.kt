@@ -215,11 +215,11 @@ class CircleImageView @JvmOverloads constructor(context: Context, @Nullable attr
         // scale up/down with respect to this view size and maintain aspect ratio
         // translate bitmap position with dx/dy to the center of the image
         if (mBitmap!!.getWidth() < mBitmap!!.getHeight()) {
-            scale = mBitmapDrawBounds.width() / mBitmap!!.getWidth() as Float
+            scale = mBitmapDrawBounds.width() / mBitmap!!.getWidth().toFloat()
             dx = mBitmapDrawBounds.left
             dy = mBitmapDrawBounds.top - mBitmap!!.getHeight() * scale / 2f + mBitmapDrawBounds.width() / 2f
         } else {
-            scale = mBitmapDrawBounds.height() / mBitmap!!.getHeight() as Float
+            scale = mBitmapDrawBounds.height() / mBitmap!!.getHeight().toFloat()
             dx = mBitmapDrawBounds.left - mBitmap!!.getWidth() * scale / 2f + mBitmapDrawBounds.width() / 2f
             dy = mBitmapDrawBounds.top
         }

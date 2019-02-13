@@ -24,7 +24,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includedToolbar"/>
+                app:layout_constraintTop_toBottomOf="@+id/includedToolbar"
+                tools:listitem="@layout/item_repeating_unit"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
