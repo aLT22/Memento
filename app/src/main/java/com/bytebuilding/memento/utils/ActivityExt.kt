@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -91,6 +92,33 @@ fun AppCompatActivity.setUpToolbar(
             setSubtitleTextColor(ContextCompat.getColor(this@setUpToolbar, subtitleColor))
         }
     }
+
+    setSupportActionBar(toolbar)
+
+    return toolbar
+}
+
+fun AppCompatActivity.setUpToolbar(
+    toolbar: Toolbar,
+    @ColorRes toolbarColor: Int = R.color.colorPrimary,
+    @StringRes title: Int,
+    @ColorRes titleColor: Int = R.color.colorWhite,
+    @StringRes subtitle: Int? = null,
+    @ColorRes subtitleColor: Int = R.color.colorWhite
+): Toolbar {
+    toolbar.apply {
+        setBackgroundColor(ContextCompat.getColor(this@setUpToolbar, toolbarColor))
+
+        setTitle(title)
+        setTitleTextColor(ContextCompat.getColor(this@setUpToolbar, titleColor))
+
+        subtitle?.let {
+            setSubtitle(subtitle)
+            setSubtitleTextColor(ContextCompat.getColor(this@setUpToolbar, subtitleColor))
+        }
+    }
+
+    setSupportActionBar(toolbar)
 
     return toolbar
 }

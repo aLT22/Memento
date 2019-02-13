@@ -3,4 +3,7 @@
 
     <!-- Splash screen -->
     <string name="splash_title">Try to memorise everything!</string>
+
+    <!-- Main screen -->
+    <string name="main_screen_title">Your mementos</string>
 </resources>

@@ -1,10 +1,11 @@
 package com.bytebuilding.memento.ui.main
 
 import android.os.Bundle
-import com.bytebuilding.data.utils.logi
 import com.bytebuilding.memento.R
 import com.bytebuilding.memento.databinding.ActivityMainBinding
 import com.bytebuilding.memento.ui.base.BaseActivity
+import com.bytebuilding.memento.utils.setUpToolbar
+import kotlinx.android.synthetic.main.toolbar_base.*
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>(MainActivityVM::class) {
 
@@ -13,7 +14,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>(MainActiv
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        logi(TAG, mViewModel.toString())
+        setUpToolbar(
+            toolbar = toolbar,
+            title = R.string.main_screen_title
+        )
     }
 
     companion object {
