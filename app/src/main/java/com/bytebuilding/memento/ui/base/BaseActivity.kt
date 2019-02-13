@@ -15,10 +15,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModelByClass
 import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.KClass
 
-/**
- * Created by Turkin A. on 06/01/2019.
- */
-abstract class BaseActivity<V : ViewDataBinding, out VM : ViewModel>(
+
+abstract class BaseActivity<V : ViewDataBinding, out VM : BaseViewModel>(
     clazz: KClass<VM>
 ) : AppCompatActivity(), CoroutineScope {
 

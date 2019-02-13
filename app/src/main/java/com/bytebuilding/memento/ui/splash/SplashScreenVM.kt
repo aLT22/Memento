@@ -1,30 +1,18 @@
 package com.bytebuilding.memento.ui.splash
 
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import com.bytebuilding.data.presenters.splash.SplashScreenActionProducer
 import com.bytebuilding.data.presenters.splash.SplashScreenPresenter
 import com.bytebuilding.data.utils.loge
 import com.bytebuilding.domain.messages.splash.SplashScreenActions
 import com.bytebuilding.domain.messages.splash.SplashScreenEvents
+import com.bytebuilding.memento.ui.base.BaseViewModel
 import com.bytebuilding.memento.utils.SingleLiveEvent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 class SplashScreenVM :
-    ViewModel(), LifecycleObserver, CoroutineScope {
-
-    /**
-     * Coroutines stuff
-     * */
-    val mJob = SupervisorJob()
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO + mJob
+    BaseViewModel() {
 
     /**
      * Architecture stuff

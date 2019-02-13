@@ -8,7 +8,6 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import com.bytebuilding.memento.BR
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,10 +17,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModelByClass
 import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.KClass
 
-/**
- * Created by Turkin A. on 06/01/2019.
- */
-abstract class BaseFragment<V : ViewDataBinding, out VM : ViewModel>(
+
+abstract class BaseFragment<V : ViewDataBinding, out VM : BaseViewModel>(
     clazz: KClass<VM>
 ) : Fragment(), CoroutineScope {
 
