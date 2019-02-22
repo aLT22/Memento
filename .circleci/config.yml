@@ -1,14 +1,16 @@
 #
 # Build configuration for Circle CI
 #
+version: 2
 
 general:
   artifacts:
   - /home/ubuntu/Memento/app/build/outputs/apk/
 
-machine:
-  environment:
-    ANDROID_HOME: /usr/local/android-sdk-linux
+jobs:
+  build:
+    environment:
+      ANDROID_HOME: /usr/local/android-sdk-linux
 
 dependencies:
   override:
