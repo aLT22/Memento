@@ -53,6 +53,12 @@ class SplashScreenVM :
 
     fun goToMainActivityAction(): LiveData<SplashScreenActions.GoToMainActivityAction> = mGoToMainActivityAction
 
+    override fun onCleared() {
+        SplashScreenPresenter.cancelJobs()
+
+        super.onCleared()
+    }
+
     companion object {
         const val TAG = "SplashScreenVM"
     }
