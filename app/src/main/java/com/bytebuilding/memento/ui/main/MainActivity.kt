@@ -1,6 +1,5 @@
 package com.bytebuilding.memento.ui.main
 
-import android.os.Bundle
 import com.bytebuilding.memento.R
 import com.bytebuilding.memento.databinding.ActivityMainBinding
 import com.bytebuilding.memento.ui.base.BaseActivity
@@ -11,13 +10,20 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>(MainActiv
 
     override fun layoutId(): Int = R.layout.activity_main
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun initViews() {
         setUpToolbar(
             toolbar = toolbar,
             title = R.string.main_screen_title
         )
+    }
+
+    override fun initListeners() {
+    }
+
+    override fun observeChanges() {
+    }
+
+    override fun removeListeners() {
     }
 
     companion object {
