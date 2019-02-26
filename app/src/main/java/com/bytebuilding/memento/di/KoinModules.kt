@@ -1,5 +1,6 @@
 package com.bytebuilding.memento.di
 
+import com.bytebuilding.memento.ui.add.AddFactActivityVM
 import com.bytebuilding.memento.ui.main.MainActivityVM
 import com.bytebuilding.memento.ui.splash.SplashScreenVM
 import org.koin.androidx.viewmodel.ext.koin.viewModel
@@ -21,6 +22,7 @@ val viewModule = module {
      * */
     viewModel { SplashScreenVM() }
     viewModel { MainActivityVM() }
+    viewModel { AddFactActivityVM() }
 
     /**
      * Fragment VMs

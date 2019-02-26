@@ -32,12 +32,36 @@ abstract class BaseFragment<V : ViewDataBinding, out VM : BaseViewModel>(
     @LayoutRes
     abstract fun layoutId(): Int
 
+    abstract fun initViews()
+    abstract fun initListeners()
+    abstract fun observeChanges()
+    abstract fun removeListeners()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
         mBinding.setLifecycleOwner(this)
         mBinding.setVariable(BR.vm, mViewModel)
 
         return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initViews()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        initListeners()
+        observeChanges()
+    }
+
+    override fun onStop() {
+        removeListeners()
+
+        super.onStop()
     }
 
     override fun onDestroyView() {

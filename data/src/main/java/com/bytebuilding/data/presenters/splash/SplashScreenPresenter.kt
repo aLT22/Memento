@@ -2,6 +2,7 @@
 
 package com.bytebuilding.data.presenters.splash
 
+import com.bytebuilding.data.presenters.base.BasePresenter
 import com.bytebuilding.data.utils.loge
 import com.bytebuilding.domain.messages.splash.SplashScreenActions
 import com.bytebuilding.domain.messages.splash.SplashScreenEvents
@@ -18,7 +19,7 @@ data class SplashScreenActionProducer(
 
 class SplashScreenPresenter {
 
-    companion object Presenter : CoroutineScope {
+    companion object Presenter : BasePresenter, CoroutineScope {
 
         private val mJob = SupervisorJob()
         override val coroutineContext: CoroutineContext
@@ -48,6 +49,10 @@ class SplashScreenPresenter {
             }
 
             return SplashScreenActionProducer(splashScreenActionChannel)
+        }
+
+        override fun cancelJobs() {
+            mJob.cancelChildren()
         }
     }
 

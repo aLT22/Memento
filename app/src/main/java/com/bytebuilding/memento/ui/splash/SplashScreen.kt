@@ -1,6 +1,5 @@
 package com.bytebuilding.memento.ui.splash
 
-import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.bytebuilding.memento.R
 import com.bytebuilding.memento.databinding.ActivitySplashScreenBinding
@@ -13,18 +12,20 @@ class SplashScreen :
 
     override fun layoutId(): Int = R.layout.activity_splash_screen
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initViews() {
+    }
 
+    override fun initListeners() {
+        mViewModel.startActionListening()
+    }
+
+    override fun observeChanges() {
         mViewModel.goToMainActivityAction().observe(this, Observer {
             launchActivityAndFinishCurrent<MainActivity> { }
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        mViewModel.startActionListening()
+    override fun removeListeners() {
     }
 
     companion object {
