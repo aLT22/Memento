@@ -30,15 +30,30 @@ abstract class BaseActivity<V : ViewDataBinding, out VM : BaseViewModel>(
     @LayoutRes
     abstract fun layoutId(): Int
 
+    abstract fun initViews()
+    abstract fun initListeners()
+    abstract fun observeChanges()
+    abstract fun removeListeners()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, layoutId())
         mBinding.setLifecycleOwner(this)
         mBinding.setVariable(BR.vm, mViewModel)
+
+        initViews()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        initListeners()
+        observeChanges()
     }
 
     override fun onStop() {
         mJob.cancelChildren()
+        removeListeners()
 
         super.onStop()
     }
