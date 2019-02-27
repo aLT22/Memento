@@ -6,11 +6,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <CircleImageView
+    <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/colorProgress"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            tools:background="@color/colorBlack"
+            app:civ_circle_background_color="@color/colorBlack"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
