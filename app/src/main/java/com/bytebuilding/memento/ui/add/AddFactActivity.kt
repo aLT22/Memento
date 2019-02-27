@@ -4,8 +4,7 @@ import androidx.databinding.ViewDataBinding
 import com.bytebuilding.memento.R
 import com.bytebuilding.memento.ui.base.BaseActivity
 import com.bytebuilding.memento.utils.setUpToolbar
-import kotlinx.android.synthetic.main.toolbar_base.*
-
+import kotlinx.android.synthetic.main.toolbar_base.toolbar
 
 class AddFactActivity :
     BaseActivity<ViewDataBinding, AddFactActivityVM>(AddFactActivityVM::class) {
