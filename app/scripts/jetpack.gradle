@@ -1,5 +1,11 @@
 dependencies {
-    implementation Dependencies.jetPack
+    /**
+     * UI libs from JetPack
+     * */
+    implementation Dependencies.uiJetPack
 
+    /**
+     * Navigation framework
+     * */
     implementation Dependencies.navigationJetPack
 }
