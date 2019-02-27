@@ -41,6 +41,7 @@ object Versions {
         const val appCompat = "1.1.0-alpha01"
         const val constraint = "1.1.3"
         const val navigation = "1.0.0-alpha11"
+        const val room = "2.0.0"
     }
 
     /**

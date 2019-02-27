@@ -15,7 +15,7 @@ object Dependencies {
      * */
     const val appCompat = "androidx.appcompat:appcompat:${Versions.JetPack.appCompat}"
     const val constraint = "androidx.constraintlayout:constraintlayout:${Versions.JetPack.constraint}"
-    val jetPack = arrayOf(
+    val uiJetPack = arrayOf(
         "androidx.appcompat:appcompat:${Versions.JetPack.appCompat}",
         "androidx.constraintlayout:constraintlayout:${Versions.JetPack.constraint}"
     )
@@ -25,6 +25,9 @@ object Dependencies {
         navigationUi,
         navigationFragment
     )
+    const val room = "androidx.room:room-common:${Versions.JetPack.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.JetPack.room}"
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.JetPack.room}"
 
     /**
      * DI (Koin)

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion Versions.compileData
@@ -20,3 +21,4 @@ android {
 }
 
 apply from: 'scripts/core.gradle'
+apply from: 'scripts/jetpack.gradle'

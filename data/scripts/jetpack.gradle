@@ -1,0 +1,8 @@
+dependencies {
+    /**
+     * Room
+     * */
+    implementation Dependencies.room
+    kapt Dependencies.roomCompiler
+    api Dependencies.roomRuntime
+}
