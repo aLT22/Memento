@@ -42,6 +42,11 @@ object Dependencies {
     )
 
     /**
+     * Misc libs
+     * */
+    const val circleImageView = "de.hdodenhof:circleimageview:${Versions.Misc.circleImageView}"
+
+    /**
      * Tests
      * */
     const val jUnit = "junit:junit:${Versions.Tests.jUnit}"

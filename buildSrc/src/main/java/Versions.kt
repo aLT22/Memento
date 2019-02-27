@@ -52,6 +52,13 @@ object Versions {
     }
 
     /**
+     * Misc
+     * */
+    object Misc {
+        const val circleImageView = "3.0.0"
+    }
+
+    /**
      * Tests
      * */
     object Tests {
