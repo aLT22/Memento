@@ -15,4 +15,5 @@
     <string name="add_fact_screen_add_title_hint">Enter title here…</string>
     <string name="add_fact_screen_add_description_title">Description</string>
     <string name="add_fact_screen_add_description_hint">Enter description here…</string>
+    <string name="add_fact_screen_menu_save">Save</string>
 </resources>
