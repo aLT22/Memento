@@ -8,9 +8,11 @@ import com.bytebuilding.memento.ui.main.MainActivity
 import com.bytebuilding.memento.utils.launchActivityAndFinishCurrent
 
 class SplashScreen :
-    BaseActivity<ActivitySplashScreenBinding, SplashScreenVM>(SplashScreenVM::class) {
+    BaseActivity<ActivitySplashScreenBinding, SplashScreenVM, SplashScreenVM.ViewState>(SplashScreenVM::class) {
 
     override fun layoutId(): Int = R.layout.activity_splash_screen
+
+    override fun viewState(): SplashScreenVM.ViewState = mViewModel.mViewState.value!!
 
     override fun initViews() {
     }
@@ -26,6 +28,9 @@ class SplashScreen :
     }
 
     override fun removeListeners() {
+    }
+
+    override fun render(viewState: SplashScreenVM.ViewState) {
     }
 
     companion object {

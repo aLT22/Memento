@@ -15,8 +15,8 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.KClass
 
 
-abstract class BaseActivity<V : ViewDataBinding, out VM : BaseViewModel>(
-    clazz: KClass<VM>
+abstract class BaseActivity<V : ViewDataBinding, out VM : BaseViewModel, VS : BaseViewState>(
+    clazz: KClass<out VM>
 ) : AppCompatActivity(), CoroutineScope {
 
     protected val mJob = SupervisorJob()
@@ -25,22 +25,31 @@ abstract class BaseActivity<V : ViewDataBinding, out VM : BaseViewModel>(
 
     protected lateinit var mBinding: V
     protected val mViewModel: VM by viewModelByClass(clazz)
+    protected lateinit var mViewState: VS
 
     @LayoutRes
     abstract fun layoutId(): Int
+
+    abstract fun viewState(): VS
 
     abstract fun initViews()
     abstract fun initListeners()
     abstract fun observeChanges()
     abstract fun removeListeners()
 
+    abstract fun render(viewState: VS)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mViewState = viewState()
+
         mBinding = DataBindingUtil.setContentView(this, layoutId())
         mBinding.setLifecycleOwner(this)
         mBinding.setVariable(BR.vm, mViewModel)
 
         initViews()
+        render(mViewState)
     }
 
     override fun onStart() {

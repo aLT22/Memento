@@ -1,18 +1,26 @@
 package com.bytebuilding.memento.ui.splash
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.bytebuilding.data.presenters.splash.SplashScreenActionProducer
 import com.bytebuilding.data.presenters.splash.SplashScreenPresenter
 import com.bytebuilding.data.utils.loge
 import com.bytebuilding.domain.messages.splash.SplashScreenActions
 import com.bytebuilding.domain.messages.splash.SplashScreenEvents
 import com.bytebuilding.memento.ui.base.BaseViewModel
+import com.bytebuilding.memento.ui.base.BaseViewState
 import com.bytebuilding.memento.utils.SingleLiveEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 
 class SplashScreenVM :
     BaseViewModel() {
+
+    data class ViewState(
+        val tag: String = TAG
+    ) : BaseViewState
+
+    val mViewState = MutableLiveData<ViewState>()
 
     /**
      * Architecture stuff
@@ -26,6 +34,8 @@ class SplashScreenVM :
     private val mGoToMainActivityAction = SingleLiveEvent<SplashScreenActions.GoToMainActivityAction>()
 
     init {
+        mViewState.value = ViewState()
+
         launch(coroutineContext) {
             mEventChannel.send(SplashScreenEvents.SplashScreenReadyEvent)
         }
@@ -52,6 +62,8 @@ class SplashScreenVM :
         }
 
     fun goToMainActivityAction(): LiveData<SplashScreenActions.GoToMainActivityAction> = mGoToMainActivityAction
+
+    override fun currentViewState(): BaseViewState = mViewState.value!!
 
     override fun onCleared() {
         SplashScreenPresenter.cancelJobs()
