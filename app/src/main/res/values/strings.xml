@@ -11,4 +11,8 @@
 
     <!-- Add Fact screen -->
     <string name="add_fact_screen_title">Add your memento</string>
+    <string name="add_fact_screen_add_title_title">Title</string>
+    <string name="add_fact_screen_add_title_hint">Enter title here…</string>
+    <string name="add_fact_screen_add_description_title">Description</string>
+    <string name="add_fact_screen_add_description_hint">Enter description here…</string>
 </resources>
