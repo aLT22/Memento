@@ -12,9 +12,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_base.*
 import kotlinx.coroutines.launch
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>(MainActivityVM::class) {
+class MainActivity :
+    BaseActivity<ActivityMainBinding, MainActivityVM, MainActivityVM.ViewState>(MainActivityVM::class) {
 
     override fun layoutId(): Int = R.layout.activity_main
+
+    override fun viewState(): MainActivityVM.ViewState = mViewModel.mViewState.value!!
 
     override fun initViews() {
         setUpToolbar(
@@ -41,6 +44,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>(MainActiv
 
     override fun removeListeners() {
         addFact.setOnClickListener(null)
+    }
+
+    override fun render(viewState: MainActivityVM.ViewState) {
     }
 
     companion object {
