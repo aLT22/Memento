@@ -10,9 +10,11 @@ import com.bytebuilding.memento.utils.shortToast
 import kotlinx.android.synthetic.main.toolbar_base.*
 
 class AddFactActivity :
-    BaseActivity<ViewDataBinding, AddFactActivityVM>(AddFactActivityVM::class) {
+    BaseActivity<ViewDataBinding, AddFactActivityVM, AddFactActivityVM.ViewState>(AddFactActivityVM::class) {
 
     override fun layoutId(): Int = R.layout.activity_add_fact
+
+    override fun viewState(): AddFactActivityVM.ViewState = mViewModel.mViewState.value!!
 
     override fun initViews() {
         setUpToolbar(
@@ -28,6 +30,9 @@ class AddFactActivity :
     }
 
     override fun removeListeners() {
+    }
+
+    override fun render(viewState: AddFactActivityVM.ViewState) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

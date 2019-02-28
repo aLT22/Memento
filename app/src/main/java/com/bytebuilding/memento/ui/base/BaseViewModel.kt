@@ -18,6 +18,8 @@ abstract class BaseViewModel :
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + mJob
 
+    abstract fun currentViewState(): BaseViewState
+
     /**
      * Maybe there is a piece of code that unnecessary to be here...
      * */
