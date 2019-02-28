@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:custom="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="vm" type="com.bytebuilding.memento.ui.add.AddFactActivityVM"/>
     </data>
@@ -16,5 +17,26 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 layout="@layout/toolbar_add_fact"/>
+
+        <com.bytebuilding.memento.ui.custom.AddInformationView
+                android:id="@+id/addTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                custom:aiv_title="Title"
+                custom:aiv_hint="Enter title here..."
+                app:layout_constraintTop_toBottomOf="@+id/includedToolbar"/>
+
+
+        <com.bytebuilding.memento.ui.custom.AddInformationView
+                android:id="@+id/addDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                custom:aiv_title="Description"
+                custom:aiv_hint="Enter description here..."
+                app:layout_constraintTop_toBottomOf="@+id/addTitle"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
