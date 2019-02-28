@@ -33,6 +33,14 @@ class AddFactActivity :
     }
 
     override fun render(viewState: AddFactActivityVM.ViewState) {
+        when (viewState.isTitleValid && viewState.isDescriptionValid) {
+            true -> {
+                //Enable save menu
+            }
+            false -> {
+                //Disable save menu
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

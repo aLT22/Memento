@@ -18,7 +18,7 @@ class MainActivityVM : BaseViewModel() {
 
     data class ViewState(
         val tag: String = TAG
-    ) : BaseViewState()
+    ) : BaseViewState
 
     val mViewState = MutableLiveData<ViewState>()
 

@@ -14,7 +14,7 @@ class AddFactActivityVM : BaseViewModel() {
         val isTitleValid: Boolean = false,
         val description: String = "",
         val isDescriptionValid: Boolean = false
-    ) : BaseViewState()
+    ) : BaseViewState
 
     val mViewState = MutableLiveData<ViewState>()
 
@@ -25,12 +25,12 @@ class AddFactActivityVM : BaseViewModel() {
     override fun currentViewState(): BaseViewState = mViewState.value!!
 
     fun onTitleChanged(title: String) {
-//        mViewState.value =
-//            if (title.isEmpty()) {
-//                currentViewState().copy(title = title, isTitleValid = false)
-//            } else {
-//                currentViewState().copy(title = title, isTitleValid = true)
-//            }
+        mViewState.value =
+            if (title.isEmpty()) {
+                (currentViewState() as ViewState).copy(title = title, isTitleValid = false)
+            } else {
+                (currentViewState() as ViewState).copy(title = title, isTitleValid = true)
+            }
     }
 
     companion object {
