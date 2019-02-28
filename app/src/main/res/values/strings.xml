@@ -1,5 +1,7 @@
 <resources>
+    <!-- Base strings -->
     <string name="app_name">Memento</string>
+    <string name="stub" translatable="false"/>
 
     <!-- Splash screen -->
     <string name="splash_title">Try to memorise everything!</string>
