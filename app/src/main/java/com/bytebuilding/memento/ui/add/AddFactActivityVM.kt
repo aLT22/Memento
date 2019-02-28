@@ -10,9 +10,9 @@ class AddFactActivityVM : BaseViewModel() {
      * Activity's view state
      * */
     data class ViewState(
-        val title: String = "",
+        val title: CharSequence? = "",
         val isTitleValid: Boolean = false,
-        val description: String = "",
+        val description: CharSequence? = "",
         val isDescriptionValid: Boolean = false
     ) : BaseViewState
 
@@ -24,12 +24,21 @@ class AddFactActivityVM : BaseViewModel() {
 
     override fun currentViewState(): BaseViewState = mViewState.value!!
 
-    fun onTitleChanged(title: String) {
+    fun onTitleChanged(title: CharSequence?) {
         mViewState.value =
-            if (title.isEmpty()) {
+            if (title.isNullOrBlank()) {
                 (currentViewState() as ViewState).copy(title = title, isTitleValid = false)
             } else {
                 (currentViewState() as ViewState).copy(title = title, isTitleValid = true)
+            }
+    }
+
+    fun onDescriptionChanged(description: CharSequence?) {
+        mViewState.value =
+            if (description.isNullOrBlank()) {
+                (currentViewState() as ViewState).copy(description = description, isDescriptionValid = false)
+            } else {
+                (currentViewState() as ViewState).copy(description = description, isDescriptionValid = true)
             }
     }
 

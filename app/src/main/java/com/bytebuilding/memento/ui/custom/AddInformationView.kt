@@ -1,6 +1,8 @@
 package com.bytebuilding.memento.ui.custom
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.appcompat.widget.AppCompatTextView
@@ -17,7 +19,7 @@ class AddInformationView(
 ) : LinearLayoutCompat(
     context,
     attrs
-) {
+), TextWatcher {
 
     /**
      * Views
@@ -32,6 +34,11 @@ class AddInformationView(
     private var mTitleText: String
     private var mDescriptionText: String
     private var mDescriptionHint: String
+
+    /**
+     * Listeners
+     * */
+    private var mTextChangedListener: InformationTextChangedListener? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_add_information, this, true)
@@ -64,6 +71,35 @@ class AddInformationView(
 
         mDescription = findViewById(R.id.description)
         if (mDescriptionText.isNotEmpty()) mDescription.setText(mDescriptionText)
+        mDescription.addTextChangedListener(this)
+    }
+
+    override fun onDetachedFromWindow() {
+        mDescription.removeTextChangedListener(this)
+
+        super.onDetachedFromWindow()
+    }
+
+    override fun afterTextChanged(s: Editable?) {
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        mTextChangedListener?.onTextChanged(s)
+    }
+
+    fun setOnInformationTextChangedListener(listener: InformationTextChangedListener) {
+        this.mTextChangedListener = listener
+    }
+
+    fun removeInformationTextChangedListener() {
+        this.mTextChangedListener = null
+    }
+
+    interface InformationTextChangedListener {
+        fun onTextChanged(text: CharSequence? = "")
     }
 
 }
