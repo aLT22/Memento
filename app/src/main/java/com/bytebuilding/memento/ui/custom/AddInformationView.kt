@@ -36,6 +36,8 @@ class AddInformationView(
     init {
         LayoutInflater.from(context).inflate(R.layout.view_add_information, this, true)
 
+        orientation = VERTICAL
+
         mTitleText = context.getString(R.string.stub)
         mDescriptionText = context.getString(R.string.stub)
         mDescriptionHint = context.getString(R.string.stub)
@@ -58,9 +60,9 @@ class AddInformationView(
         mTitle.text = mTitleText
 
         mDescriptionContainer = findViewById(R.id.descriptionContainer)
+        mDescriptionContainer.hint = mDescriptionHint
 
         mDescription = findViewById(R.id.description)
-        mDescription.hint = mDescriptionHint
         if (mDescriptionText.isNotEmpty()) mDescription.setText(mDescriptionText)
     }
 
