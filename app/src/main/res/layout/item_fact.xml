@@ -10,7 +10,7 @@
             android:id="@+id/colorProgress"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            app:civ_circle_background_color="@color/colorBlack"
+            tools:src="@color/colorBlack"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Add Information View -->
+    <declare-styleable name="AddInformationView">
+        <attr name="aiv_title" format="string"/>
+        <attr name="aiv_description" format="string"/>
+        <attr name="aiv_hint" format="string"/>
+    </declare-styleable>
+</resources>
