@@ -16,14 +16,5 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 layout="@layout/toolbar_add_fact"/>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/circleImageView"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includedToolbar"
-                app:civ_circle_background_color="@color/colorPrimary"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_margin="128dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
