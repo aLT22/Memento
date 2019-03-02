@@ -1,6 +1,7 @@
 package com.bytebuilding.memento
 
 import android.app.Application
+import com.bytebuilding.data.di.localStorageModule
 import com.bytebuilding.memento.di.applicationModule
 import com.bytebuilding.memento.di.viewModule
 import org.koin.android.ext.android.startKoin
@@ -18,7 +19,8 @@ class MementoApp : Application() {
             this,
             listOf(
                 applicationModule,
-                viewModule
+                viewModule,
+                localStorageModule
             )
         )
     }
