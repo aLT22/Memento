@@ -19,4 +19,9 @@ dependencies {
      * Coroutines
      * */
     implementation Dependencies.coroutines
+
+    /**
+     * DI (Koin)
+     * */
+    implementation Dependencies.koins
 }

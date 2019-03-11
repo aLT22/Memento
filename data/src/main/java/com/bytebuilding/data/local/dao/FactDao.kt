@@ -13,6 +13,15 @@ interface FactDao {
     fun insertFact(fact: FactEntity)
 
     @Query("SELECT * FROM FactEntity")
-    fun getFacts(): List<FactEntity>
+    fun getAllFacts(): List<FactEntity>
+
+    @Query("SELECT * FROM FactEntity WHERE id=:id")
+    fun getFactById(id: Long?): FactEntity
+
+    @Query("SELECT * FROM FactEntity WHERE title LIKE :title")
+    fun getFactsByTitle(title: String): List<FactEntity>
+
+    @Query("SELECT * FROM FactEntity WHERE description LIKE :description")
+    fun getFactsByDescription(description: String): List<FactEntity>
 
 }
