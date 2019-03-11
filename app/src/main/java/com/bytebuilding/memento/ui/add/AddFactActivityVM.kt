@@ -1,8 +1,14 @@
 package com.bytebuilding.memento.ui.add
 
 import androidx.lifecycle.MutableLiveData
+import com.bytebuilding.data.presenters.add.AddFactActionProducer
+import com.bytebuilding.domain.messages.add.AddFactActivityActions
+import com.bytebuilding.domain.messages.add.AddFactActivityEvents
 import com.bytebuilding.memento.ui.base.BaseViewModel
 import com.bytebuilding.memento.ui.base.BaseViewState
+import com.bytebuilding.memento.utils.SingleLiveEvent
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.launch
 
 
 class AddFactActivityVM : BaseViewModel() {
@@ -17,6 +23,17 @@ class AddFactActivityVM : BaseViewModel() {
     ) : BaseViewState
 
     val mViewState = MutableLiveData<ViewState>()
+
+    /**
+     * Architecture stuff
+     * */
+    val mEventChannel = Channel<AddFactActivityEvents>()
+    private var mActionProducer: AddFactActionProducer? = null
+
+    /**
+     * LiveData<T> per Action for UI changes
+     * */
+    private val mAddFactAction = SingleLiveEvent<AddFactActivityActions.SaveFactAction>()
 
     init {
         mViewState.value = ViewState()
@@ -41,6 +58,12 @@ class AddFactActivityVM : BaseViewModel() {
                 (currentViewState() as ViewState).copy(description = description, isDescriptionValid = true)
             }
     }
+
+    fun saveFact() =
+        launch {
+            mEventChannel.send(AddFactActivityEvents.FactWasAddedEvent)
+            //TODO: need to end add fact logic!!!
+        }
 
     companion object {
         const val TAG = "AddFactActivityVM"
