@@ -24,6 +24,7 @@ class MainActivityPresenter {
         override val coroutineContext: CoroutineContext
             get() = Dispatchers.IO + mJob
 
+        @Suppress("UNUSED_EXPRESSION")
         fun mainActivityEventCatcher(
             mainActivityEventChannel: ReceiveChannel<MainActivityEvents>
         ): MainActivityActionProducer {
