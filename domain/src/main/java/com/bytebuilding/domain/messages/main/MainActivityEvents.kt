@@ -5,4 +5,6 @@ sealed class MainActivityEvents {
 
     object AddFactEvent : MainActivityEvents()
 
+    object RetreiveFactsEvent : MainActivityEvents()
+
 }
