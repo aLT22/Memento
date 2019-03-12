@@ -24,6 +24,9 @@ class AddFactActivityPresenter {
         override val coroutineContext: CoroutineContext
             get() = Dispatchers.IO + mJob
 
+        //TODO: need to add repository here (add Koin to Domain layer)...
+        //TODO: ...and provide repository here
+
         fun addFactActivityEventCatcher(
             addFactActivityEventChannel: ReceiveChannel<AddFactActivityEvents>
         ): AddFactActionProducer {

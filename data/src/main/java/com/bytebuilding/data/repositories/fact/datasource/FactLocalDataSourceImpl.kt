@@ -2,6 +2,7 @@ package com.bytebuilding.data.repositories.fact.datasource
 
 import com.bytebuilding.data.local.dao.FactDao
 import com.bytebuilding.data.local.mappers.FactEntityToFactMapper
+import com.bytebuilding.data.local.mappers.FactToFactEntityMapper
 import com.bytebuilding.domain.model.Fact
 import com.bytebuilding.domain.repositories.fact.FactDataSource
 import java.util.*
@@ -9,8 +10,12 @@ import java.util.*
 
 class FactLocalDataSourceImpl(
     private val mDao: FactDao,
-    private val mFactEntityToFactMapper: FactEntityToFactMapper
+    private val mFactEntityToFactMapper: FactEntityToFactMapper,
+    private val mFactToFactEntityMapper: FactToFactEntityMapper
 ) : FactDataSource {
+
+    override fun saveFact(fact: Fact) =
+        mDao.insertFact(mFactToFactEntityMapper.map(fact))
 
     override fun getAllFacts(): List<Fact> {
         val facts = LinkedList<Fact>()

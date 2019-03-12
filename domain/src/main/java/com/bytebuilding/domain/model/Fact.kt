@@ -2,7 +2,7 @@ package com.bytebuilding.domain.model
 
 
 data class Fact(
-    val id: Long,
+    val id: Long? = null,
     val title: String,
     val description: String
 )

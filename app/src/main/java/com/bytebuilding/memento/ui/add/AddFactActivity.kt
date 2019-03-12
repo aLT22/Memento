@@ -8,7 +8,6 @@ import com.bytebuilding.memento.R
 import com.bytebuilding.memento.ui.base.BaseActivity
 import com.bytebuilding.memento.ui.custom.AddInformationView
 import com.bytebuilding.memento.utils.setUpToolbar
-import com.bytebuilding.memento.utils.shortToast
 import kotlinx.android.synthetic.main.activity_add_fact.*
 import kotlinx.android.synthetic.main.toolbar_base.*
 
@@ -29,6 +28,8 @@ class AddFactActivity :
     }
 
     override fun initListeners() {
+        mViewModel.startActionListening()
+
         addTitle.setOnInformationTextChangedListener(object : AddInformationView.InformationTextChangedListener {
             override fun onTextChanged(text: CharSequence?) {
                 mViewModel.onTitleChanged(text.toString())
@@ -74,7 +75,7 @@ class AddFactActivity :
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.actionSave -> {
-                shortToast("Saved!")
+                mViewModel.saveFact()
                 true
             }
             else -> super.onOptionsItemSelected(item)
