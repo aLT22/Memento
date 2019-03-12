@@ -1,6 +1,8 @@
 package com.bytebuilding.data.di
 
 import com.bytebuilding.data.local.MementoDatabase
+import com.bytebuilding.data.local.mappers.FactEntityToFactMapper
+import com.bytebuilding.data.local.mappers.FactToFactEntityMapper
 import com.bytebuilding.data.repositories.fact.FactRepositoryImpl
 import com.bytebuilding.data.repositories.fact.datasource.FactLocalDataSourceImpl
 import com.bytebuilding.domain.repositories.fact.FactDataSource
@@ -18,7 +20,7 @@ val localStorageModule = module {
     /**
      * Dao
      * */
-    //TODO: Add dao for injects here
+    single { get<MementoDatabase>().factDao() }
 
     /**
      * DataSources
@@ -35,4 +37,6 @@ val mappersModule = module {
     /**
      * FactMappers
      * */
+    factory { FactEntityToFactMapper() }
+    factory { FactToFactEntityMapper() }
 }
