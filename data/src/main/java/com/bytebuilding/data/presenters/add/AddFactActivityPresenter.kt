@@ -4,9 +4,11 @@ import com.bytebuilding.data.presenters.base.BasePresenter
 import com.bytebuilding.data.utils.loge
 import com.bytebuilding.domain.messages.add.AddFactActivityActions
 import com.bytebuilding.domain.messages.add.AddFactActivityEvents
+import com.bytebuilding.domain.repositories.fact.FactRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
+import org.koin.standalone.inject
 import kotlin.coroutines.CoroutineContext
 
 
@@ -24,9 +26,9 @@ class AddFactActivityPresenter {
         override val coroutineContext: CoroutineContext
             get() = Dispatchers.IO + mJob
 
-        //TODO: need to add repository here (add Koin to Domain layer)...
-        //TODO: ...and provide repository here
+        private val mFactRepository: FactRepository by inject()
 
+        @Suppress("UNUSED_EXPRESSION")
         fun addFactActivityEventCatcher(
             addFactActivityEventChannel: ReceiveChannel<AddFactActivityEvents>
         ): AddFactActionProducer {
@@ -36,8 +38,14 @@ class AddFactActivityPresenter {
                 try {
                     for (addFactActivityEvent in addFactActivityEventChannel) {
                         when (addFactActivityEvent) {
-                            AddFactActivityEvents.FactWasAddedEvent -> {
-                                //TODO: implementation logic after adding fact
+                            AddFactActivityEvents.AddFactEvent -> {
+                                val fact = AddFactActivityEvents.AddFactEvent.fact
+                                if (fact != null) {
+                                    mFactRepository.saveFact(fact)
+                                    addFactActivityActionChannel.send(AddFactActivityActions.FactWasSavedAction)
+                                } else {
+                                    addFactActivityActionChannel.send(AddFactActivityActions.FactWasNotSavedAction)
+                                }
                                 false
                             }
                         }
