@@ -18,7 +18,10 @@ class MainActivityVM : BaseViewModel() {
 
     data class ViewState(
         val tag: String = TAG
-    ) : BaseViewState
+    ) : BaseViewState {
+        override fun resetState() {
+        }
+    }
 
     val mViewState = MutableLiveData<ViewState>()
 

@@ -1,5 +1,6 @@
 package com.bytebuilding.memento.ui.add
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bytebuilding.data.presenters.add.AddFactActionProducer
 import com.bytebuilding.data.presenters.add.AddFactActivityPresenter
@@ -22,11 +23,18 @@ class AddFactActivityVM(
      * Activity's view state
      * */
     data class ViewState(
-        val title: CharSequence? = "",
-        val isTitleValid: Boolean = false,
-        val description: CharSequence? = "",
-        val isDescriptionValid: Boolean = false
-    ) : BaseViewState
+        var title: CharSequence? = "",
+        var isTitleValid: Boolean = false,
+        var description: CharSequence? = "",
+        var isDescriptionValid: Boolean = false
+    ) : BaseViewState {
+        override fun resetState() {
+            title = ""
+            isTitleValid = false
+            description = ""
+            isDescriptionValid = false
+        }
+    }
 
     val mViewState = MutableLiveData<ViewState>()
 
@@ -39,13 +47,20 @@ class AddFactActivityVM(
     /**
      * LiveData<T> per Action for UI changes
      * */
-    private val mAddFactAction = SingleLiveEvent<AddFactActivityActions.SaveFactAction>()
+    private val mAddFactAction = SingleLiveEvent<AddFactActivityActions.FactWasSavedAction>()
+    private val mFactWasNotAddedAction = SingleLiveEvent<AddFactActivityActions.FactWasNotSavedAction>()
 
     init {
         mViewState.value = ViewState()
     }
 
     override fun currentViewState(): BaseViewState = mViewState.value!!
+
+    fun factWasSavedAction(): LiveData<AddFactActivityActions.FactWasSavedAction> =
+        mAddFactAction
+
+    fun factWasNotSavedAction(): LiveData<AddFactActivityActions.FactWasNotSavedAction> =
+        mFactWasNotAddedAction
 
     fun onTitleChanged(title: CharSequence?) {
         mViewState.value =
@@ -73,8 +88,12 @@ class AddFactActivityVM(
                 mActionProducer?.addFactActionChannel?.let { addFactActions ->
                     for (action in addFactActions) {
                         when (action) {
-                            AddFactActivityActions.SaveFactAction -> {
+                            AddFactActivityActions.FactWasSavedAction -> {
+                                mViewState.value?.resetState()
                                 mAddFactAction.call()
+                            }
+                            AddFactActivityActions.FactWasNotSavedAction -> {
+                                mFactWasNotAddedAction.call()
                             }
                         }
                     }
@@ -87,7 +106,6 @@ class AddFactActivityVM(
 
     fun saveFact() =
         launch {
-            //TODO: need to end add fact logic!!!
             val currentViewState = currentViewState() as AddFactActivityVM.ViewState
             if (currentViewState.isTitleValid && currentViewState.isDescriptionValid) {
                 val fact = mToFactMapper.map(
@@ -97,7 +115,7 @@ class AddFactActivityVM(
                     )
                 )
 
-                val factWasAddedEvent = AddFactActivityEvents.FactWasAddedEvent
+                val factWasAddedEvent = AddFactActivityEvents.AddFactEvent
                 factWasAddedEvent.fact = fact
 
                 mEventChannel.send(factWasAddedEvent)

@@ -1,4 +1,8 @@
 package com.bytebuilding.memento.ui.base
 
 
-interface BaseViewState
+interface BaseViewState {
+
+    fun resetState()
+
+}
