@@ -5,7 +5,7 @@ import com.bytebuilding.domain.model.Fact
 
 sealed class AddFactActivityEvents {
 
-    object FactWasAddedEvent : AddFactActivityEvents() {
+    object AddFactEvent : AddFactActivityEvents() {
         var fact: Fact? = null
     }
 
