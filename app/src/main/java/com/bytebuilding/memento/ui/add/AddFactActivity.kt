@@ -7,7 +7,9 @@ import androidx.lifecycle.Observer
 import com.bytebuilding.memento.R
 import com.bytebuilding.memento.ui.base.BaseActivity
 import com.bytebuilding.memento.ui.custom.AddInformationView
+import com.bytebuilding.memento.utils.longToast
 import com.bytebuilding.memento.utils.setUpToolbar
+import com.bytebuilding.memento.utils.shortToast
 import kotlinx.android.synthetic.main.activity_add_fact.*
 import kotlinx.android.synthetic.main.toolbar_base.*
 
@@ -46,6 +48,15 @@ class AddFactActivity :
     override fun observeChanges() {
         mViewModel.mViewState.observe(this, Observer {
             it?.let { viewState -> render(viewState) }
+        })
+
+        mViewModel.factWasSavedAction().observe(this, Observer {
+            finish()
+            longToast("Fact was added!")
+        })
+
+        mViewModel.factWasNotSavedAction().observe(this, Observer {
+            shortToast("Error!")
         })
     }
 
