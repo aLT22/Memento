@@ -6,6 +6,8 @@ import com.bytebuilding.domain.repositories.core.Repository
 
 interface FactRepository : Repository {
 
+    fun saveFact(fact: Fact)
+
     fun getAllFacts(): List<Fact>
 
     fun getFactById(id: Long): Fact

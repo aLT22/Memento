@@ -9,6 +9,8 @@ class FactRepositoryImpl(
     private val mLocalDataSource: FactDataSource
 ) : FactRepository {
 
+    override fun saveFact(fact: Fact) = mLocalDataSource.saveFact(fact)
+
     override fun getAllFacts(): List<Fact> = mLocalDataSource.getAllFacts()
 
     override fun getFactById(id: Long): Fact = mLocalDataSource.getFactById(id)
