@@ -20,6 +20,8 @@ class MementoApp : Application() {
             listOf(
                 applicationModule,
                 viewModule,
+                com.bytebuilding.memento.di.mappersModule,
+                com.bytebuilding.data.di.mappersModule,
                 localStorageModule
             )
         )

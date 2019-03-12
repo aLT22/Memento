@@ -8,7 +8,7 @@ import com.bytebuilding.data.local.dao.FactDao
 import com.bytebuilding.data.local.entities.FactEntity
 
 
-@Database(entities = [FactEntity::class], version = 1)
+@Database(entities = [FactEntity::class], version = 1, exportSchema = false)
 abstract class MementoDatabase : RoomDatabase() {
 
     abstract fun factDao(): FactDao
