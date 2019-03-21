@@ -1,4 +1,4 @@
-package com.bytebuilding.memento.ui.custom.behavior
+package com.bytebuilding.memento.ui.custom.behaviors
 
 import android.content.Context
 import android.util.AttributeSet
