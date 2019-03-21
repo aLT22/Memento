@@ -34,7 +34,7 @@ class MainActivityPresenter {
         ): MainActivityActionProducer {
             val mainActivityActionChannel = Channel<MainActivityActions>()
 
-            launch(coroutineContext) {
+            launch {
                 try {
                     for (mainActivityEvent in mainActivityEventChannel) {
                         when (mainActivityEvent) {
