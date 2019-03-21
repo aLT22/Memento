@@ -1,7 +1,9 @@
 package com.bytebuilding.memento.ui.add
 
+import android.graphics.drawable.Drawable
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.bytebuilding.memento.R
@@ -18,6 +20,9 @@ class AddFactActivity :
 
     private var mSaveMenuItem: MenuItem? = null
 
+    private var mDisabledSaveMenuButtonDrawable: Drawable? = null
+    private var mEnableSaveMenuButtonDrawable: Drawable? = null
+
     override fun layoutId(): Int = R.layout.activity_add_fact
 
     override fun viewState(): AddFactActivityVM.ViewState = mViewModel.mViewState.value!!
@@ -29,6 +34,9 @@ class AddFactActivity :
                 homeAsUpIndicatorResId = R.drawable.ic_arrow_back_white_24dp,
                 title = R.string.add_fact_screen_title
         )
+
+        mEnableSaveMenuButtonDrawable = ContextCompat.getDrawable(this, R.drawable.ic_save_white_24dp)
+        mDisabledSaveMenuButtonDrawable = ContextCompat.getDrawable(this, R.drawable.ic_save_alpha_white_24dp)
     }
 
     override fun initListeners() {
@@ -70,9 +78,11 @@ class AddFactActivity :
     override fun render(viewState: AddFactActivityVM.ViewState) {
         when (viewState.isTitleValid && viewState.isDescriptionValid) {
             true -> {
+                mSaveMenuItem?.icon = mEnableSaveMenuButtonDrawable
                 mSaveMenuItem?.isEnabled = true
             }
             false -> {
+                mSaveMenuItem?.icon = mDisabledSaveMenuButtonDrawable
                 mSaveMenuItem?.isEnabled = false
             }
         }

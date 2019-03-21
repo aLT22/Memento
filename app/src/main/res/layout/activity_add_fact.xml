@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:custom="http://schemas.android.com/apk/res-auto">
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <variable name="vm" type="com.bytebuilding.memento.ui.add.AddFactActivityVM"/>
+
+        <variable
+            name="vm"
+            type="com.bytebuilding.memento.ui.add.AddFactActivityVM" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/addFactRoot"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/addFactRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/includedToolbar"
+            layout="@layout/toolbar_add_fact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <include
-                android:id="@+id/includedToolbar"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                layout="@layout/toolbar_add_fact"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <com.bytebuilding.memento.ui.custom.AddInformationView
-                android:id="@+id/addTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                custom:aiv_title="@string/add_fact_screen_add_title_title"
-                custom:aiv_hint="@string/add_fact_screen_add_title_hint"
-                app:layout_constraintTop_toBottomOf="@+id/includedToolbar"/>
+                <com.bytebuilding.memento.ui.custom.AddInformationView
+                    android:id="@+id/addTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    custom:aiv_hint="@string/add_fact_screen_add_title_hint"
+                    custom:aiv_title="@string/add_fact_screen_add_title_title" />
 
 
-        <com.bytebuilding.memento.ui.custom.AddInformationView
-                android:id="@+id/addDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                custom:aiv_title="@string/add_fact_screen_add_description_title"
-                custom:aiv_hint="@string/add_fact_screen_add_description_hint"
-                app:layout_constraintTop_toBottomOf="@+id/addTitle"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.bytebuilding.memento.ui.custom.AddInformationView
+                    android:id="@+id/addDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    custom:aiv_hint="@string/add_fact_screen_add_description_hint"
+                    custom:aiv_title="@string/add_fact_screen_add_description_title" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </ScrollView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
