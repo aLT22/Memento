@@ -4,7 +4,7 @@
     <string name="stub" translatable="false" />
 
     <!-- Behaviors -->
-    <string name="FloatingActionButtonMoveBehavior" translatable="false">com.bytebuilding.memento.ui.custom.behavior.FloatingActionButtonMoveBehavior</string>
+    <string name="FloatingActionButtonMoveBehavior" translatable="false">com.bytebuilding.memento.ui.custom.behaviors.FloatingActionButtonMoveBehavior</string>
 
     <!-- Splash screen -->
     <string name="splash_title">Try to memorise everything!</string>

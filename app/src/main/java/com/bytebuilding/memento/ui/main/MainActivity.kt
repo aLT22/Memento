@@ -1,7 +1,8 @@
 package com.bytebuilding.memento.ui.main
 
-import android.graphics.Canvas
+import android.graphics.Color
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -10,17 +11,20 @@ import com.bytebuilding.memento.databinding.ActivityMainBinding
 import com.bytebuilding.memento.ui.adapters.rv.FactsListAdapter
 import com.bytebuilding.memento.ui.add.AddFactActivity
 import com.bytebuilding.memento.ui.base.BaseActivity
+import com.bytebuilding.memento.ui.custom.helpers.FactUiItemTouchHelper
+import com.bytebuilding.memento.ui.custom.helpers.FactUiItemTouchHelperListener
 import com.bytebuilding.memento.utils.launchActivity
 import com.bytebuilding.memento.utils.setUpToolbar
 import com.bytebuilding.memento.utils.shortToast
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity :
-    BaseActivity<ActivityMainBinding, MainActivityVM, MainActivityVM.ViewState>(MainActivityVM::class) {
+        BaseActivity<ActivityMainBinding, MainActivityVM, MainActivityVM.ViewState>(MainActivityVM::class) {
 
     private lateinit var mFactsListAdapter: FactsListAdapter
 
-    private var mItemTouchHelperSimpleCallback: ItemTouchHelper.SimpleCallback? = null
+    private var mItemTouchHelperSimpleCallback: FactUiItemTouchHelper? = null
     private var mItemTouchHelper: ItemTouchHelper? = null
 
     override fun layoutId(): Int = R.layout.activity_main
@@ -29,21 +33,22 @@ class MainActivity :
 
     override fun initViews() {
         setUpToolbar(
-            toolbar = toolbar,
-            title = R.string.main_screen_title
+                toolbar = toolbar,
+                title = R.string.main_screen_title
         )
 
         mFactsListAdapter = FactsListAdapter { fact ->
             shortToast(fact.id.toString())
         }
 
-        mBinding.mementos.adapter = mFactsListAdapter
+        mBinding.mementos.itemAnimator = DefaultItemAnimator()
         mBinding.mementos.layoutManager =
-            LinearLayoutManager(
-                this,
-                RecyclerView.VERTICAL,
-                false
-            )
+                LinearLayoutManager(
+                        this,
+                        RecyclerView.VERTICAL,
+                        false
+                )
+        mBinding.mementos.adapter = mFactsListAdapter
     }
 
     override fun initListeners() {
@@ -55,32 +60,32 @@ class MainActivity :
             mViewModel.addFactEvent()
         }
 
-        mItemTouchHelperSimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
+        mItemTouchHelperSimpleCallback = FactUiItemTouchHelper(0, ItemTouchHelper.LEFT)
+        mItemTouchHelperSimpleCallback
+                ?.setItemTouchHelperListener(object : FactUiItemTouchHelperListener {
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int, position: Int) {
+                        if (viewHolder is FactsListAdapter.FactUiViewHolder) {
+                            val deletedTitle = viewState().facts[position].title
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                //TODO: remove data from adapter
-            }
+                            val deletedFact = viewState().facts[position]
 
-            override fun onChildDraw(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-            ) {
-                //TODO: draw the background view
-            }
-        }
-        mItemTouchHelper = ItemTouchHelper(mItemTouchHelperSimpleCallback as ItemTouchHelper.SimpleCallback)
+                            mViewModel.deleteFact(position)
+                            mFactsListAdapter.factRemoved(position)
+
+                            val snackbar = Snackbar
+                                    .make(mBinding.coordinatorContainer, "$deletedTitle removed!", Snackbar.LENGTH_INDEFINITE)
+                            snackbar.setAction("UNDO") {
+                                mViewModel.restoreFact(position, deletedFact)
+                                mFactsListAdapter.factInserted(position)
+                                mBinding.mementos.scrollToPosition(position)
+                            }
+                            snackbar.setActionTextColor(Color.YELLOW)
+                            snackbar.show()
+                        }
+                    }
+                })
+
+        mItemTouchHelper = ItemTouchHelper(mItemTouchHelperSimpleCallback as FactUiItemTouchHelper)
         mItemTouchHelper?.attachToRecyclerView(mBinding.mementos)
     }
 
@@ -99,6 +104,7 @@ class MainActivity :
 
         mItemTouchHelper?.attachToRecyclerView(null)
         mItemTouchHelper = null
+        mItemTouchHelperSimpleCallback?.removeTouchHelperListener()
         mItemTouchHelperSimpleCallback = null
     }
 
