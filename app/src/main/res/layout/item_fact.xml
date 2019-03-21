@@ -1,54 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fact"
+            type="com.bytebuilding.memento.data.FactUI" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="?attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/colorProgress"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            tools:src="@color/colorBlack"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title"
-            app:layout_constraintBottom_toBottomOf="@+id/title"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:weightSum="1">
 
-    <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/title"
-            tools:text="Title"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="48dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintRight_toLeftOf="@+id/creationDate"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintLeft_toRightOf="@+id/colorProgress"
-            android:textColor="@color/colorBlack"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/colorProgress"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                tools:src="@color/colorBlack" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/creationDate"
-            app:layout_constraintTop_toTopOf="@+id/title"
-            app:layout_constraintBottom_toBottomOf="@+id/title"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp"
-            tools:text="2.02.19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:text="@{fact.title}"
+                android:textColor="@color/colorBlack"
+                tools:text="Title" />
 
-    <View
-            android:id="@+id/divider"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            android:layout_marginTop="50dp"
-            app:layout_constraintLeft_toLeftOf="@+id/title"
-            android:background="@color/colorBlack"
-            android:layout_width="0dp"
-            android:layout_height="1dp"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/creationDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                tools:text="2.02.19" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.cardview.widget.CardView>
+</layout>

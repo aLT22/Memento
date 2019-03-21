@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_add_fact.*
 import kotlinx.android.synthetic.main.toolbar_base.*
 
 class AddFactActivity :
-    BaseActivity<ViewDataBinding, AddFactActivityVM, AddFactActivityVM.ViewState>(AddFactActivityVM::class) {
+        BaseActivity<ViewDataBinding, AddFactActivityVM, AddFactActivityVM.ViewState>(AddFactActivityVM::class) {
 
     private var mSaveMenuItem: MenuItem? = null
 
@@ -24,8 +24,10 @@ class AddFactActivity :
 
     override fun initViews() {
         setUpToolbar(
-            toolbar = toolbar,
-            title = R.string.add_fact_screen_title
+                toolbar = toolbar,
+                isHomeAsUpEnabled = true,
+                homeAsUpIndicatorResId = R.drawable.ic_arrow_back_white_24dp,
+                title = R.string.add_fact_screen_title
         )
     }
 

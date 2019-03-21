@@ -1,6 +1,7 @@
 package com.bytebuilding.memento.ui.base
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -16,7 +17,7 @@ import kotlin.reflect.KClass
 
 
 abstract class BaseActivity<V : ViewDataBinding, out VM : BaseViewModel, VS : BaseViewState>(
-    clazz: KClass<out VM>
+        clazz: KClass<out VM>
 ) : AppCompatActivity(), CoroutineScope {
 
     protected val mJob = SupervisorJob()
@@ -65,5 +66,16 @@ abstract class BaseActivity<V : ViewDataBinding, out VM : BaseViewModel, VS : Ba
 
         super.onStop()
     }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean =
+            when (item?.itemId) {
+                android.R.id.home -> {
+                    onBackPressed()
+                    true
+                }
+                else -> {
+                    super.onOptionsItemSelected(item)
+                }
+            }
 
 }

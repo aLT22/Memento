@@ -1,11 +1,26 @@
 package com.bytebuilding.memento.utils
 
-class StubManager {
+import com.bytebuilding.memento.data.FactUI
+import java.util.*
+
+object StubManager {
+
+    const val TAG = "StubManager"
+
+    object FactManager {
+
+        const val TAG = "FactManager"
 
 
-
-    companion object {
-        const val TAG = "StubManager"
+        fun generateFactsForUi(): List<FactUI> =
+            LinkedList<FactUI>()
+                .apply {
+                    for (i in 0..100) {
+                        add(
+                            FactUI(id = i.toLong(), title = "Title $i", desciption = "Description $i")
+                        )
+                    }
+                }
     }
 
 }

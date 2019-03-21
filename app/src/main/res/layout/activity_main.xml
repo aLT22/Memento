@@ -1,47 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
-                name="vm"
-                type="com.bytebuilding.memento.ui.main.MainActivityVM"/>
+            name="vm"
+            type="com.bytebuilding.memento.ui.main.MainActivityVM" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="com.bytebuilding.memento.ui.main.MainActivity">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.bytebuilding.memento.ui.main.MainActivity">
 
-        <include
-                android:id="@+id/includedToolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/toolbar_main"/>
+                android:layout_height="?actionBarSize"
+                android:background="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:subtitleTextColor="@color/colorSecondaryText"
+                app:titleTextColor="@color/colorPrimaryText"
+                tools:subtitle="Subtitle"
+                tools:title="Title" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mementos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includedToolbar"
-                tools:listitem="@layout/item_fact"/>
+            android:id="@+id/mementos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorLightGray"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/item_fact" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addFact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="24dp"
-                app:fabSize="normal"
-                android:src="@drawable/ic_add_white_24dp"
-                app:layout_anchor="@+id/mementos"
-                app:layout_anchorGravity="bottom|end"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:id="@+id/addFact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:src="@drawable/ic_add_white_24dp"
+            app:fabSize="normal"
+            app:layout_anchor="@+id/mementos"
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_behavior="@string/FloatingActionButtonMoveBehavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

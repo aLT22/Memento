@@ -124,6 +124,7 @@ class AddFactActivityVM(
 
     override fun onCleared() {
         AddFactActivityPresenter.cancelJobs()
+        mViewState.value?.resetState()
 
         super.onCleared()
     }
