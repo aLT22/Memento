@@ -1,8 +1,5 @@
 package com.bytebuilding.memento.ui.base
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,21 +9,13 @@ import kotlin.coroutines.CoroutineContext
 
 
 abstract class BaseViewModel :
-    ViewModel(), CoroutineScope, LifecycleObserver {
+    ViewModel(), CoroutineScope {
 
     protected val mJob = SupervisorJob()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + mJob
 
     abstract fun currentViewState(): BaseViewState
-
-    /**
-     * Maybe there is a piece of code that unnecessary to be here...
-     * */
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    protected fun onStop() {
-        mJob.cancelChildren()
-    }
 
     override fun onCleared() {
         mJob.cancelChildren()

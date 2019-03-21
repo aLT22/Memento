@@ -16,7 +16,7 @@ import kotlin.reflect.KClass
 
 
 abstract class BaseActivity<V : ViewDataBinding, out VM : BaseViewModel, VS : BaseViewState>(
-    clazz: KClass<out VM>
+        clazz: KClass<out VM>
 ) : AppCompatActivity(), CoroutineScope {
 
     protected val mJob = SupervisorJob()

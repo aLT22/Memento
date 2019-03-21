@@ -23,7 +23,7 @@ val viewModule = module {
      * Activity VMs
      * */
     viewModel { SplashScreenVM() }
-    viewModel { MainActivityVM() }
+    viewModel { MainActivityVM(get()) }
     viewModel { AddFactActivityVM(get()) }
 
     /**
