@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -19,9 +20,9 @@ import com.bytebuilding.memento.R
  * */
 @SuppressLint("ObsoleteSdkInt")
 inline fun <reified T : Any> AppCompatActivity.launchActivity(
-    requestCode: Int = -1,
-    options: Bundle? = null,
-    noinline init: Intent.() -> Unit = {}
+        requestCode: Int = -1,
+        options: Bundle? = null,
+        noinline init: Intent.() -> Unit = {}
 ) {
 
     val intent = newIntent<T>()
@@ -35,9 +36,9 @@ inline fun <reified T : Any> AppCompatActivity.launchActivity(
 
 @SuppressLint("ObsoleteSdkInt")
 inline fun <reified T : Any> AppCompatActivity.launchActivityAndFinishCurrent(
-    requestCode: Int = -1,
-    options: Bundle? = null,
-    noinline init: Intent.() -> Unit = {}
+        requestCode: Int = -1,
+        options: Bundle? = null,
+        noinline init: Intent.() -> Unit = {}
 ) {
 
     val intent = newIntent<T>()
@@ -74,12 +75,14 @@ fun AppCompatActivity.hideKeyboard() {
  * Toolbar/ActionBar
  * */
 fun AppCompatActivity.setUpToolbar(
-    toolbar: Toolbar,
-    @ColorRes toolbarColor: Int = R.color.colorPrimary,
-    title: CharSequence,
-    @ColorRes titleColor: Int = R.color.colorWhite,
-    subtitle: CharSequence? = null,
-    @ColorRes subtitleColor: Int = R.color.colorWhite
+        toolbar: Toolbar,
+        isHomeAsUpEnabled: Boolean = false,
+        @DrawableRes homeAsUpIndicatorResId: Int = 0,
+        @ColorRes toolbarColor: Int = R.color.colorPrimary,
+        title: CharSequence,
+        @ColorRes titleColor: Int = R.color.colorWhite,
+        subtitle: CharSequence? = null,
+        @ColorRes subtitleColor: Int = R.color.colorWhite
 ): Toolbar {
     toolbar.apply {
         setBackgroundColor(ContextCompat.getColor(this@setUpToolbar, toolbarColor))
@@ -94,17 +97,24 @@ fun AppCompatActivity.setUpToolbar(
     }
 
     setSupportActionBar(toolbar)
+
+    supportActionBar?.setDisplayHomeAsUpEnabled(isHomeAsUpEnabled)
+    if (homeAsUpIndicatorResId != 0) {
+        supportActionBar?.setHomeAsUpIndicator(homeAsUpIndicatorResId)
+    }
 
     return toolbar
 }
 
 fun AppCompatActivity.setUpToolbar(
-    toolbar: Toolbar,
-    @ColorRes toolbarColor: Int = R.color.colorPrimary,
-    @StringRes title: Int,
-    @ColorRes titleColor: Int = R.color.colorWhite,
-    @StringRes subtitle: Int? = null,
-    @ColorRes subtitleColor: Int = R.color.colorWhite
+        toolbar: Toolbar,
+        isHomeAsUpEnabled: Boolean = false,
+        @DrawableRes homeAsUpIndicatorResId: Int = 0,
+        @ColorRes toolbarColor: Int = R.color.colorPrimary,
+        @StringRes title: Int,
+        @ColorRes titleColor: Int = R.color.colorWhite,
+        @StringRes subtitle: Int? = null,
+        @ColorRes subtitleColor: Int = R.color.colorWhite
 ): Toolbar {
     toolbar.apply {
         setBackgroundColor(ContextCompat.getColor(this@setUpToolbar, toolbarColor))
@@ -119,6 +129,11 @@ fun AppCompatActivity.setUpToolbar(
     }
 
     setSupportActionBar(toolbar)
+
+    supportActionBar?.setDisplayHomeAsUpEnabled(isHomeAsUpEnabled)
+    if (homeAsUpIndicatorResId != 0) {
+        supportActionBar?.setHomeAsUpIndicator(homeAsUpIndicatorResId)
+    }
 
     return toolbar
 }
