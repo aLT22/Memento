@@ -16,4 +16,6 @@ interface FactDataSource : DataSource {
 
     fun getFactsByDescription(description: CharSequence): List<Fact>
 
+    fun deleteFact(fact: Fact)
+
 }

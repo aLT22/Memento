@@ -6,7 +6,7 @@ import com.bytebuilding.domain.repositories.fact.FactRepository
 
 
 class FactRepositoryImpl(
-    private val mLocalDataSource: FactDataSource
+        private val mLocalDataSource: FactDataSource
 ) : FactRepository {
 
     override fun saveFact(fact: Fact) = mLocalDataSource.saveFact(fact)
@@ -15,8 +15,12 @@ class FactRepositoryImpl(
 
     override fun getFactById(id: Long): Fact = mLocalDataSource.getFactById(id)
 
-    override fun getFactsByTitle(title: CharSequence): List<Fact> = mLocalDataSource.getFactsByTitle(title)
+    override fun getFactsByTitle(title: CharSequence): List<Fact> =
+            mLocalDataSource.getFactsByTitle(title)
 
     override fun getFactsByDescription(description: CharSequence): List<Fact> =
-        mLocalDataSource.getFactsByDescription(description)
+            mLocalDataSource.getFactsByDescription(description)
+
+    override fun deleteFact(fact: Fact) =
+            mLocalDataSource.deleteFact(fact)
 }

@@ -15,5 +15,7 @@ interface FactRepository : Repository {
     fun getFactsByTitle(title: CharSequence): List<Fact>
 
     fun getFactsByDescription(description: CharSequence): List<Fact>
-    
+
+    fun deleteFact(fact: Fact)
+
 }
