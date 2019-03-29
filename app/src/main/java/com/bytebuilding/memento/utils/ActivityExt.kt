@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
@@ -84,14 +86,17 @@ fun AppCompatActivity.setUpToolbar(
         subtitle: CharSequence? = null,
         @ColorRes subtitleColor: Int = R.color.colorWhite
 ): Toolbar {
+    val spannableTitle = setUpSpannableTitle(title.toString())
+    val spannableSubtitle = setUpSpannableTitle(subtitle.toString())
+
     toolbar.apply {
         setBackgroundColor(ContextCompat.getColor(this@setUpToolbar, toolbarColor))
 
-        setTitle(title)
+        setTitle(spannableTitle)
         setTitleTextColor(ContextCompat.getColor(this@setUpToolbar, titleColor))
 
-        subtitle?.let {
-            setSubtitle(subtitle)
+        if (!spannableSubtitle.isBlank()) {
+            setSubtitle(spannableSubtitle)
             setSubtitleTextColor(ContextCompat.getColor(this@setUpToolbar, subtitleColor))
         }
     }
@@ -116,13 +121,18 @@ fun AppCompatActivity.setUpToolbar(
         @StringRes subtitle: Int? = null,
         @ColorRes subtitleColor: Int = R.color.colorWhite
 ): Toolbar {
+    val spannableTitle = setUpSpannableTitle(title)
+    val spannableSubtitle =
+            if (subtitle != null) setUpSpannableTitle(subtitle)
+            else null
+
     toolbar.apply {
         setBackgroundColor(ContextCompat.getColor(this@setUpToolbar, toolbarColor))
 
-        setTitle(title)
+        setTitle(spannableTitle)
         setTitleTextColor(ContextCompat.getColor(this@setUpToolbar, titleColor))
 
-        subtitle?.let {
+        spannableSubtitle?.let { subtitle ->
             setSubtitle(subtitle)
             setSubtitleTextColor(ContextCompat.getColor(this@setUpToolbar, subtitleColor))
         }
@@ -136,6 +146,26 @@ fun AppCompatActivity.setUpToolbar(
     }
 
     return toolbar
+}
+
+@SuppressLint("ResourceType")
+private fun AppCompatActivity.setUpSpannableTitle(title: Int): SpannableString {
+    val spannableTitle = SpannableString(getString(title))
+    spannableTitle.setSpan(TypefaceSpan(this, R.font.crimson_text_bold),
+            0,
+            spannableTitle.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    return spannableTitle
+}
+
+@SuppressLint("ResourceType")
+private fun AppCompatActivity.setUpSpannableTitle(title: String): SpannableString {
+    val spannableTitle = SpannableString(title)
+    spannableTitle.setSpan(TypefaceSpan(this, R.font.crimson_text_bold),
+            0,
+            spannableTitle.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    return spannableTitle
 }
 /**
  * Toolbar/ActionBar

@@ -23,10 +23,12 @@ class MainActivityVM(
 
     data class ViewState(
             var tag: String = TAG,
-            var facts: List<FactUI> = LinkedList()
+            var facts: List<FactUI> = LinkedList(),
+            var deletedFactIndex: Int = -1
     ) : BaseViewState {
         override fun resetState() {
             facts = emptyList()
+            deletedFactIndex = -1
         }
     }
 
@@ -62,6 +64,22 @@ class MainActivityVM(
     fun onFactsChanged(facts: List<FactUI>) {
         mViewState.postValue(
                 (currentViewState() as ViewState).copy(facts = facts)
+        )
+    }
+
+    fun deleteFact(index: Int) {
+        val modifiedFacts = ((currentViewState() as ViewState).facts as LinkedList<FactUI>)
+        modifiedFacts.removeAt(index)
+        mViewState.postValue(
+                (currentViewState() as ViewState).copy(facts = modifiedFacts, deletedFactIndex = index)
+        )
+    }
+
+    fun restoreFact(index: Int, deletedFact: FactUI) {
+        val modifiedFacts = ((currentViewState() as ViewState).facts as LinkedList<FactUI>)
+        modifiedFacts.add(index, deletedFact)
+        mViewState.postValue(
+                (currentViewState() as ViewState).copy(facts = modifiedFacts, deletedFactIndex = -1)
         )
     }
 

@@ -14,6 +14,8 @@
 
     <!-- Ordinary colors -->
     <color name="colorWhite">#ffffff</color>
-    <color name="colorLightGray">#CCFFFFFF</color>
+    <color name="colorLightGray">#E2E2E2</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorDarkGrey">#838383</color>
+    <color name="colorRed">#B71C1C</color>
 </resources>

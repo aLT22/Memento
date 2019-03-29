@@ -32,8 +32,16 @@ class FactsListAdapter(
         holder.bind(getItem(position), mOnFactClickListener)
     }
 
+    fun factRemoved(position: Int) {
+        notifyItemRemoved(position)
+    }
+
+    fun factInserted(position: Int) {
+        notifyItemInserted(position)
+    }
+
     class FactUiViewHolder(
-            private val mBinding: ItemFactBinding
+            val mBinding: ItemFactBinding
     ) : BaseViewHolder<ViewDataBinding, FactUI>(mBinding) {
 
         override fun bind(model: FactUI, listener: (FactUI) -> Unit) {

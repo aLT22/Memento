@@ -4,13 +4,16 @@
     <string name="stub" translatable="false" />
 
     <!-- Behaviors -->
-    <string name="FloatingActionButtonMoveBehavior" translatable="false">com.bytebuilding.memento.ui.custom.behavior.FloatingActionButtonMoveBehavior</string>
+    <string name="FloatingActionButtonMoveBehavior" translatable="false">com.bytebuilding.memento.ui.custom.behaviors.FloatingActionButtonMoveBehavior</string>
 
     <!-- Splash screen -->
     <string name="splash_title">Try to memorise everything!</string>
 
     <!-- Main screen -->
     <string name="main_screen_title">Your mementos</string>
+
+    <!-- Memento item -->
+    <string name="item_memento_delete">Delete</string>
 
     <!-- Add Fact screen -->
     <string name="add_fact_screen_title">Add your memento</string>

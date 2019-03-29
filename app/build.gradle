@@ -12,6 +12,7 @@ android {
         versionCode Versions.versionCode
         versionName Versions.versionName
         testInstrumentationRunner Versions.testRunner
+        vectorDrawables.useSupportLibrary = true
     }
 
     lintOptions {
