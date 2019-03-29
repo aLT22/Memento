@@ -15,7 +15,7 @@ import kotlin.coroutines.CoroutineContext
 const val TAG = "MainActivityPresenter"
 
 data class MainActivityActionProducer(
-    val mainActivityActionChannel: ReceiveChannel<MainActivityActions>
+        val mainActivityActionChannel: ReceiveChannel<MainActivityActions>
 )
 
 class MainActivityPresenter {
@@ -30,7 +30,7 @@ class MainActivityPresenter {
 
         @Suppress("UNUSED_EXPRESSION")
         fun mainActivityEventCatcher(
-            mainActivityEventChannel: ReceiveChannel<MainActivityEvents>
+                mainActivityEventChannel: ReceiveChannel<MainActivityEvents>
         ): MainActivityActionProducer {
             val mainActivityActionChannel = Channel<MainActivityActions>()
 
@@ -45,10 +45,22 @@ class MainActivityPresenter {
                             MainActivityEvents.RetreiveFactsEvent -> {
                                 val retrievedFacts = mRepository.getAllFacts()
                                 if (retrievedFacts.isNullOrEmpty()) {
-                                    mainActivityActionChannel.send(MainActivityActions.FactsWasNotRetreivedAction)
+                                    mainActivityActionChannel.send(MainActivityActions.FactsWasNotRetrievedAction)
                                 } else {
-                                    MainActivityActions.FactsWasRetreivedAction.mFacts = retrievedFacts
-                                    mainActivityActionChannel.send(MainActivityActions.FactsWasRetreivedAction)
+                                    MainActivityActions.FactsWasRetrievedAction.mFacts = retrievedFacts
+                                    mainActivityActionChannel.send(MainActivityActions.FactsWasRetrievedAction)
+                                }
+                            }
+                            MainActivityEvents.DeleteFactEvent -> {
+                                val deletedFact = MainActivityEvents.DeleteFactEvent.mFact
+                                if (deletedFact != null) {
+                                    mRepository.deleteFact(deletedFact)
+                                    mainActivityActionChannel.send(MainActivityActions.FactWasDeletedAction)
+                                } else {
+                                    MainActivityActions.FactWasNotDeletedAction.mIndex =
+                                            MainActivityEvents.DeleteFactEvent.mIndex
+                                    MainActivityActions.FactWasNotDeletedAction.mFact = deletedFact
+                                    mainActivityActionChannel.send(MainActivityActions.FactWasNotDeletedAction)
                                 }
                             }
                         }
