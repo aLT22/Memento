@@ -12,6 +12,9 @@
     <!-- Main screen -->
     <string name="main_screen_title">Your mementos</string>
 
+    <!-- Memento item -->
+    <string name="item_memento_delete">Delete</string>
+
     <!-- Add Fact screen -->
     <string name="add_fact_screen_title">Add your memento</string>
     <string name="add_fact_screen_add_title_title">Title</string>
