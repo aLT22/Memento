@@ -9,6 +9,7 @@ import com.bytebuilding.domain.messages.main.MainActivityActions
 import com.bytebuilding.domain.messages.main.MainActivityEvents
 import com.bytebuilding.memento.data.FactUI
 import com.bytebuilding.memento.data.mappers.FactToFactUIMapper
+import com.bytebuilding.memento.data.mappers.FactUIToFactMapper
 import com.bytebuilding.memento.ui.base.BaseViewModel
 import com.bytebuilding.memento.ui.base.BaseViewState
 import com.bytebuilding.memento.utils.SingleLiveEvent
@@ -18,7 +19,8 @@ import java.util.*
 
 
 class MainActivityVM(
-        private val mToFactUIMapper: FactToFactUIMapper
+        private val mToFactUIMapper: FactToFactUIMapper,
+        private val mToFactMapper: FactUIToFactMapper
 ) : BaseViewModel() {
 
     data class ViewState(
@@ -44,8 +46,8 @@ class MainActivityVM(
      * LiveData<Action> per Action for UI changes
      * */
     private val mGoToAddActivityAction = SingleLiveEvent<MainActivityActions.GoToAddFactActivityAction>()
-    private val mFactsWasNotRetrievedAction = SingleLiveEvent<MainActivityActions.FactsWasNotRetreivedAction>()
-    private val mFactsWasRetrievedAction = SingleLiveEvent<MainActivityActions.FactsWasRetreivedAction>()
+    private val mFactsWasNotRetrievedAction = SingleLiveEvent<MainActivityActions.FactsWasNotRetrievedAction>()
+    private val mFactsWasRetrievedAction = SingleLiveEvent<MainActivityActions.FactsWasRetrievedAction>()
 
     init {
         mViewState.value = ViewState()
@@ -59,6 +61,13 @@ class MainActivityVM(
     fun addFactEvent() =
             launch {
                 mEventChannel.send(MainActivityEvents.AddFactEvent)
+            }
+
+    fun deleteFactEvent(index: Int, deletedFact: FactUI) =
+            launch {
+                MainActivityEvents.DeleteFactEvent.mFact = mToFactMapper.map(deletedFact)
+                MainActivityEvents.DeleteFactEvent.mIndex = index
+                mEventChannel.send(MainActivityEvents.DeleteFactEvent)
             }
 
     fun onFactsChanged(facts: List<FactUI>) {
@@ -94,13 +103,13 @@ class MainActivityVM(
                                 MainActivityActions.GoToAddFactActivityAction -> {
                                     mGoToAddActivityAction.call()
                                 }
-                                MainActivityActions.FactsWasNotRetreivedAction -> {
+                                MainActivityActions.FactsWasNotRetrievedAction -> {
                                     mFactsWasNotRetrievedAction.call()
                                 }
-                                MainActivityActions.FactsWasRetreivedAction -> {
+                                MainActivityActions.FactsWasRetrievedAction -> {
                                     val mappedFacts = LinkedList<FactUI>()
                                     MainActivityActions
-                                            .FactsWasRetreivedAction
+                                            .FactsWasRetrievedAction
                                             .mFacts
                                             .orEmpty()
                                             .forEach { fact ->
@@ -110,7 +119,15 @@ class MainActivityVM(
                                             }
 
                                     onFactsChanged(mappedFacts)
-//                                onFactsChanged(StubManager.FactManager.generateFactsForUi())
+                                }
+                                MainActivityActions.FactWasDeletedAction -> {
+                                }
+                                MainActivityActions.FactWasNotDeletedAction -> {
+                                    val restoredIndex = MainActivityActions.FactWasNotDeletedAction.mIndex
+                                    val restoredFact = MainActivityActions.FactWasNotDeletedAction.mFact
+                                    if (restoredIndex != null && restoredFact != null) {
+                                        restoreFact(restoredIndex, mToFactUIMapper.map(restoredFact))
+                                    }
                                 }
                             }
                         }

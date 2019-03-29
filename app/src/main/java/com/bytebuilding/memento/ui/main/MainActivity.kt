@@ -18,6 +18,7 @@ import com.bytebuilding.memento.utils.setUpToolbar
 import com.bytebuilding.memento.utils.shortToast
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity :
         BaseActivity<ActivityMainBinding, MainActivityVM, MainActivityVM.ViewState>(MainActivityVM::class) {
@@ -65,20 +66,37 @@ class MainActivity :
                 ?.setItemTouchHelperListener(object : FactUiItemTouchHelperListener {
                     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int, position: Int) {
                         if (viewHolder is FactsListAdapter.FactUiViewHolder) {
-                            val deletedTitle = viewState().facts[position].title
-
                             val deletedFact = viewState().facts[position]
+
+                            val deletedTitle = viewState().facts[position].title
 
                             mViewModel.deleteFact(position)
                             mFactsListAdapter.factRemoved(position)
 
                             val snackbar = Snackbar
-                                    .make(mBinding.coordinatorContainer, "$deletedTitle removed!", Snackbar.LENGTH_INDEFINITE)
-                            snackbar.setAction("UNDO") {
+                                    .make(
+                                            mBinding.coordinatorContainer,
+                                            String.format(
+                                                    Locale.getDefault(),
+                                                    getString(R.string.main_screen_snackbar_title),
+                                                    deletedTitle
+                                            ),
+                                            Snackbar.LENGTH_LONG
+                                    )
+                            snackbar.setAction(R.string.main_screen_snackbar_undo) {
                                 mViewModel.restoreFact(position, deletedFact)
                                 mFactsListAdapter.factInserted(position)
                                 mBinding.mementos.scrollToPosition(position)
                             }
+                            snackbar.addCallback(object : Snackbar.Callback() {
+                                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                                    if (event == Snackbar.Callback.DISMISS_EVENT_SWIPE ||
+                                            event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT ||
+                                            event == Snackbar.Callback.DISMISS_EVENT_CONSECUTIVE) {
+                                        mViewModel.deleteFactEvent(position, deletedFact)
+                                    }
+                                }
+                            })
                             snackbar.setActionTextColor(Color.YELLOW)
                             snackbar.show()
                         }

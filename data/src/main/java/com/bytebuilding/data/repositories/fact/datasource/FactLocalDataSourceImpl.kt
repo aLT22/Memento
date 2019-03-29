@@ -9,13 +9,13 @@ import java.util.*
 
 
 class FactLocalDataSourceImpl(
-    private val mDao: FactDao,
-    private val mFactEntityToFactMapper: FactEntityToFactMapper,
-    private val mFactToFactEntityMapper: FactToFactEntityMapper
+        private val mDao: FactDao,
+        private val mFactEntityToFactMapper: FactEntityToFactMapper,
+        private val mFactToFactEntityMapper: FactToFactEntityMapper
 ) : FactDataSource {
 
     override fun saveFact(fact: Fact) =
-        mDao.insertFact(mFactToFactEntityMapper.map(fact))
+            mDao.insertFact(mFactToFactEntityMapper.map(fact))
 
     override fun getAllFacts(): List<Fact> {
         val facts = LinkedList<Fact>()
@@ -28,13 +28,31 @@ class FactLocalDataSourceImpl(
     }
 
     override fun getFactById(id: Long): Fact =
-        mFactEntityToFactMapper.map(mDao.getFactById(id))
+            mFactEntityToFactMapper.map(mDao.getFactById(id))
 
     override fun getFactsByTitle(title: CharSequence): List<Fact> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val facts = LinkedList<Fact>()
+
+        mDao.getFactsByDescription(title.toString()).forEach { fact ->
+            facts.add(mFactEntityToFactMapper.map(fact))
+        }
+
+        return facts
     }
 
     override fun getFactsByDescription(description: CharSequence): List<Fact> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val facts = LinkedList<Fact>()
+
+        mDao.getFactsByDescription(description.toString()).forEach { fact ->
+            facts.add(mFactEntityToFactMapper.map(fact))
+        }
+
+        return facts
     }
+
+    override fun deleteFact(fact: Fact) =
+            mDao
+                    .deleteFact(
+                            mFactToFactEntityMapper.map(fact)
+                    )
 }
