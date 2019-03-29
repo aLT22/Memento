@@ -11,6 +11,8 @@
 
     <!-- Main screen -->
     <string name="main_screen_title">Your mementos</string>
+    <string name="main_screen_snackbar_title">%s removed!</string>
+    <string name="main_screen_snackbar_undo">UNDO</string>
 
     <!-- Memento item -->
     <string name="item_memento_delete">Delete</string>
