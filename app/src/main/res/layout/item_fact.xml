@@ -7,7 +7,7 @@
 
         <variable
             name="fact"
-            type="com.bytebuilding.memento.data.FactUI" />
+            type="com.bytebuilding.memento.data.entities.FactUI" />
     </data>
 
     <FrameLayout

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.bytebuilding.memento.BR
 import com.bytebuilding.memento.R
-import com.bytebuilding.memento.data.FactUI
+import com.bytebuilding.memento.data.entities.FactUI
 import com.bytebuilding.memento.databinding.ItemFactBinding
 import com.bytebuilding.memento.ui.base.BaseViewHolder
 

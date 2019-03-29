@@ -7,7 +7,7 @@ import com.bytebuilding.data.presenters.add.AddFactActivityPresenter
 import com.bytebuilding.data.utils.loge
 import com.bytebuilding.domain.messages.add.AddFactActivityActions
 import com.bytebuilding.domain.messages.add.AddFactActivityEvents
-import com.bytebuilding.memento.data.FactUI
+import com.bytebuilding.memento.data.entities.FactUI
 import com.bytebuilding.memento.data.mappers.FactUIToFactMapper
 import com.bytebuilding.memento.ui.base.BaseViewModel
 import com.bytebuilding.memento.ui.base.BaseViewState
@@ -109,10 +109,10 @@ class AddFactActivityVM(
             val currentViewState = currentViewState() as AddFactActivityVM.ViewState
             if (currentViewState.isTitleValid && currentViewState.isDescriptionValid) {
                 val fact = mToFactMapper.map(
-                    FactUI(
-                        title = currentViewState.title.toString(),
-                        desciption = currentViewState.description.toString()
-                    )
+                        FactUI(
+                                title = currentViewState.title.toString(),
+                                description = currentViewState.description.toString()
+                        )
                 )
 
                 val factWasAddedEvent = AddFactActivityEvents.AddFactEvent

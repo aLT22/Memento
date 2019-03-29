@@ -1,6 +1,6 @@
 package com.bytebuilding.memento.utils
 
-import com.bytebuilding.memento.data.FactUI
+import com.bytebuilding.memento.data.entities.FactUI
 import java.util.*
 
 object StubManager {
@@ -13,14 +13,19 @@ object StubManager {
 
 
         fun generateFactsForUi(): List<FactUI> =
-            LinkedList<FactUI>()
-                .apply {
-                    for (i in 0..100) {
-                        add(
-                            FactUI(id = i.toLong(), title = "Title $i", desciption = "Description $i")
-                        )
-                    }
-                }
+                LinkedList<FactUI>()
+                        .apply {
+                            for (i in 0..100) {
+                                add(
+                                        FactUI(
+                                                id = i.toLong(),
+                                                title = "Title $i",
+                                                description = "Description $i",
+                                                timestamp = System.currentTimeMillis()
+                                        )
+                                )
+                            }
+                        }
     }
 
 }
