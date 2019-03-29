@@ -111,7 +111,8 @@ class AddFactActivityVM(
                 val fact = mToFactMapper.map(
                         FactUI(
                                 title = currentViewState.title.toString(),
-                                description = currentViewState.description.toString()
+                                description = currentViewState.description.toString(),
+                                timestamp = System.currentTimeMillis()
                         )
                 )
 
