@@ -1,4 +1,4 @@
-package com.bytebuilding.memento.ui.custom
+package com.bytebuilding.memento.ui.custom.views
 
 import android.content.Context
 import android.text.Editable

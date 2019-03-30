@@ -30,15 +30,14 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <com.bytebuilding.memento.ui.custom.AddInformationView
+                <com.bytebuilding.memento.ui.custom.views.AddInformationView
                     android:id="@+id/addTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     custom:aiv_hint="@string/add_fact_screen_add_title_hint"
                     custom:aiv_title="@string/add_fact_screen_add_title_title" />
 
-
-                <com.bytebuilding.memento.ui.custom.AddInformationView
+                <com.bytebuilding.memento.ui.custom.views.AddInformationView
                     android:id="@+id/addDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

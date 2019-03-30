@@ -7,7 +7,7 @@ import com.bytebuilding.data.presenters.main.MainActivityPresenter
 import com.bytebuilding.data.utils.loge
 import com.bytebuilding.domain.messages.main.MainActivityActions
 import com.bytebuilding.domain.messages.main.MainActivityEvents
-import com.bytebuilding.memento.data.FactUI
+import com.bytebuilding.memento.data.entities.FactUI
 import com.bytebuilding.memento.data.mappers.FactToFactUIMapper
 import com.bytebuilding.memento.data.mappers.FactUIToFactMapper
 import com.bytebuilding.memento.ui.base.BaseViewModel

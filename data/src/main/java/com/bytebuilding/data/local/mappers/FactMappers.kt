@@ -11,7 +11,8 @@ class FactEntityToFactMapper : Mapper<FactEntity, Fact> {
             Fact(
                     id = from.id!!,
                     title = from.title,
-                    description = from.description
+                    description = from.description,
+                    timestamp = from.timestamp
             )
 }
 
@@ -21,6 +22,7 @@ class FactToFactEntityMapper : Mapper<Fact, FactEntity> {
             FactEntity(
                     id = from.id,
                     title = from.title,
-                    description = from.description
+                    description = from.description,
+                    timestamp = from.timestamp
             )
 }
