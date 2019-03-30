@@ -8,7 +8,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.bytebuilding.memento.R
 import com.bytebuilding.memento.ui.base.BaseActivity
-import com.bytebuilding.memento.ui.custom.views.AddInformationView
 import com.bytebuilding.memento.utils.longToast
 import com.bytebuilding.memento.utils.setUpToolbar
 import com.bytebuilding.memento.utils.shortToast
@@ -42,17 +41,13 @@ class AddFactActivity :
     override fun initListeners() {
         mViewModel.startActionListening()
 
-        addTitle.setOnInformationTextChangedListener(object : AddInformationView.InformationTextChangedListener {
-            override fun onTextChanged(text: CharSequence?) {
-                mViewModel.onTitleChanged(text.toString())
-            }
-        })
+        addTitle.setOnInformationTextChangedListener { text ->
+            mViewModel.onTitleChanged(text.toString())
+        }
 
-        addDescription.setOnInformationTextChangedListener(object : AddInformationView.InformationTextChangedListener {
-            override fun onTextChanged(text: CharSequence?) {
-                mViewModel.onDescriptionChanged(text)
-            }
-        })
+        addDescription.setOnInformationTextChangedListener { text ->
+            mViewModel.onDescriptionChanged(text)
+        }
     }
 
     override fun observeChanges() {

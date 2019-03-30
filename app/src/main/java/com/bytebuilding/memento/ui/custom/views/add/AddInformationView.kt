@@ -1,10 +1,9 @@
-package com.bytebuilding.memento.ui.custom.views
+package com.bytebuilding.memento.ui.custom.views.add
 
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import com.bytebuilding.memento.R
@@ -14,12 +13,12 @@ import com.google.android.material.textfield.TextInputLayout
 
 
 class AddInformationView(
-    context: Context,
-    attrs: AttributeSet? = null
+        context: Context,
+        attrs: AttributeSet? = null
 ) : LinearLayoutCompat(
-    context,
-    attrs
-), TextWatcher {
+        context,
+        attrs
+) {
 
     /**
      * Views
@@ -38,10 +37,10 @@ class AddInformationView(
     /**
      * Listeners
      * */
-    private var mTextChangedListener: InformationTextChangedListener? = null
+    private var mTextChangedListener: InformationChangedListener? = null
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_add_information, this, true)
+        inflate(context, R.layout.view_add_information, this)
 
         orientation = VERTICAL
 
@@ -71,35 +70,42 @@ class AddInformationView(
 
         mDescription = findViewById(R.id.description)
         if (mDescriptionText.isNotEmpty()) mDescription.setText(mDescriptionText)
-        mDescription.addTextChangedListener(this)
+        mDescription.onTextChanged { charSequence, _, _, _ ->
+            mTextChangedListener?.invoke(charSequence)
+        }
     }
 
     override fun onDetachedFromWindow() {
-        mDescription.removeTextChangedListener(this)
+        mTextChangedListener = null
 
         super.onDetachedFromWindow()
     }
 
-    override fun afterTextChanged(s: Editable?) {
-    }
-
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-    }
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        mTextChangedListener?.onTextChanged(s)
-    }
-
-    fun setOnInformationTextChangedListener(listener: InformationTextChangedListener) {
+    fun setOnInformationTextChangedListener(listener: InformationChangedListener) {
         this.mTextChangedListener = listener
     }
 
     fun removeInformationTextChangedListener() {
         this.mTextChangedListener = null
     }
+}
 
-    interface InformationTextChangedListener {
-        fun onTextChanged(text: CharSequence? = "")
-    }
+private typealias InformationChangedListener = (CharSequence?) -> Unit
 
+interface InformationTextChangedListener : TextWatcher {
+    override fun afterTextChanged(s: Editable?) = Unit
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+}
+
+inline fun TextInputEditText.onTextChanged(
+        crossinline textChanged: (CharSequence?, Int, Int, Int) -> Unit
+) {
+    addTextChangedListener(object : InformationTextChangedListener {
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            textChanged.invoke(s, start, before, count)
+        }
+    })
 }
