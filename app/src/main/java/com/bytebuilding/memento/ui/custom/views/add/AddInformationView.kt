@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
+import com.bytebuilding.data.utils.loge
 import com.bytebuilding.memento.R
 import com.bytebuilding.memento.utils.getString
 import com.google.android.material.textfield.TextInputEditText
@@ -51,16 +52,19 @@ class AddInformationView(
         if (attrs != null) {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.AddInformationView, 0, 0)
 
-            mTitleText = typedArray.getString(R.styleable.AddInformationView_aiv_title, mTitleText)
-            mDescriptionText = typedArray.getString(R.styleable.AddInformationView_aiv_description, mDescriptionText)
-            mDescriptionHint = typedArray.getString(R.styleable.AddInformationView_aiv_hint, mDescriptionHint)
-
-            typedArray.recycle()
+            try {
+                mTitleText = typedArray.getString(R.styleable.AddInformationView_aiv_title, mTitleText)
+                mDescriptionText = typedArray.getString(R.styleable.AddInformationView_aiv_description, mDescriptionText)
+                mDescriptionHint = typedArray.getString(R.styleable.AddInformationView_aiv_hint, mDescriptionHint)
+            } catch (th: Throwable) {
+                loge(TAG, th.localizedMessage, th)
+                mTitleText = context.getString(R.string.stub)
+                mDescriptionText = context.getString(R.string.stub)
+                mDescriptionHint = context.getString(R.string.stub)
+            } finally {
+                typedArray.recycle()
+            }
         }
-    }
-
-    override fun onFinishInflate() {
-        super.onFinishInflate()
 
         mTitle = findViewById(R.id.title)
         mTitle.text = mTitleText
@@ -87,6 +91,10 @@ class AddInformationView(
 
     fun removeInformationTextChangedListener() {
         this.mTextChangedListener = null
+    }
+
+    companion object {
+        const val TAG = "AddInfoView"
     }
 }
 
