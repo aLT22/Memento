@@ -6,4 +6,10 @@
         <attr name="aiv_description" format="string"/>
         <attr name="aiv_hint" format="string"/>
     </declare-styleable>
+
+    <!-- Selection Item View -->
+    <declare-styleable name="SelectionItemView">
+        <attr name="siv_title" format="string"/>
+        <attr name="siv_checked" format="boolean"/>
+    </declare-styleable>
 </resources>
