@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import com.bytebuilding.memento.R
@@ -14,11 +13,11 @@ import com.google.android.material.textfield.TextInputLayout
 
 
 class AddInformationView(
-    context: Context,
-    attrs: AttributeSet? = null
+        context: Context,
+        attrs: AttributeSet? = null
 ) : LinearLayoutCompat(
-    context,
-    attrs
+        context,
+        attrs
 ), TextWatcher {
 
     /**
@@ -41,7 +40,7 @@ class AddInformationView(
     private var mTextChangedListener: InformationTextChangedListener? = null
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_add_information, this, true)
+        inflate(context, R.layout.view_add_information, this)
 
         orientation = VERTICAL
 
