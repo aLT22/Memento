@@ -26,6 +26,8 @@ class SelectionItemView(
     private var mSelectionTitleText: String
     private var mIsChecked: Boolean
 
+    private var mClickListener: SelectionViewClickedListener? = null
+
     init {
         inflate(context, R.layout.view_selection_item, this)
 
@@ -52,5 +54,25 @@ class SelectionItemView(
 
         mSelectionCheckbox = findViewById(R.id.selectionCheckbox)
         mSelectionCheckbox.isChecked = mIsChecked
+
+        rootView.setOnClickListener {
+            mClickListener?.invoke(this)
+        }
+    }
+
+    override fun onDetachedFromWindow() {
+        removeListener()
+
+        super.onDetachedFromWindow()
+    }
+
+    fun addOnSelectionClickedListener(listener: SelectionViewClickedListener) {
+        mClickListener = listener
+    }
+
+    fun removeListener() {
+        mClickListener = null
     }
 }
+
+private typealias SelectionViewClickedListener = (SelectionItemView) -> Unit
