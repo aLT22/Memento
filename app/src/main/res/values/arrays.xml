@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Selection Container View title values -->
+    <string-array name="selection_container_titles">
+        <item>Option one</item>
+    </string-array>
+</resources>
