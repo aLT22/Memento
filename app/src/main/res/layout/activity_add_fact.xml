@@ -43,6 +43,14 @@
                     android:layout_height="wrap_content"
                     custom:aiv_hint="@string/add_fact_screen_add_description_hint"
                     custom:aiv_title="@string/add_fact_screen_add_description_title" />
+
+                <com.bytebuilding.memento.ui.custom.views.selection.SelectionContainerView
+                    android:id="@+id/selectionContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    custom:scv_count="1"
+                    custom:scv_selected_by_default="0"
+                    custom:scv_titles="@array/selection_container_titles" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
     </androidx.appcompat.widget.LinearLayoutCompat>

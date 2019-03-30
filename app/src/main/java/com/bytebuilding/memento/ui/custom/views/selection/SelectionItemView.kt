@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.widget.CheckBox
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
+import com.bytebuilding.data.utils.loge
 import com.bytebuilding.memento.R
 import com.bytebuilding.memento.utils.getString
 
@@ -17,8 +18,8 @@ class SelectionItemView(
     /**
      * Views
      * */
-    private lateinit var mSelectionTitle: AppCompatTextView
-    private lateinit var mSelectionCheckbox: CheckBox
+    private var mSelectionTitle: AppCompatTextView
+    private var mSelectionCheckbox: CheckBox
 
     /**
      * Views' states
@@ -39,15 +40,17 @@ class SelectionItemView(
         if (attrs != null) {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.SelectionItemView, 0, 0)
 
-            mSelectionTitleText = typedArray.getString(R.styleable.SelectionItemView_siv_title, mSelectionTitleText)
-            mIsChecked = typedArray.getBoolean(R.styleable.SelectionItemView_siv_checked, false)
-
-            typedArray.recycle()
+            try {
+                mSelectionTitleText = typedArray.getString(R.styleable.SelectionItemView_siv_title, mSelectionTitleText)
+                mIsChecked = typedArray.getBoolean(R.styleable.SelectionItemView_siv_checked, false)
+            } catch (th: Throwable) {
+                loge(TAG, th.localizedMessage, th)
+                mSelectionTitleText = context.getString(R.string.stub)
+                mIsChecked = false
+            } finally {
+                typedArray.recycle()
+            }
         }
-    }
-
-    override fun onFinishInflate() {
-        super.onFinishInflate()
 
         mSelectionTitle = findViewById(R.id.selectionTitle)
         mSelectionTitle.text = mSelectionTitleText
@@ -72,6 +75,25 @@ class SelectionItemView(
 
     fun removeListener() {
         mClickListener = null
+    }
+
+    fun setTitle(title: CharSequence) {
+        mSelectionTitleText = title.toString()
+        mSelectionTitle.text = mSelectionTitleText
+    }
+
+    fun setEnabled() {
+        mIsChecked = true
+        mSelectionCheckbox.isChecked = mIsChecked
+    }
+
+    fun setDisabled() {
+        mIsChecked = false
+        mSelectionCheckbox.isChecked = mIsChecked
+    }
+
+    companion object {
+        const val TAG = "SelectionItemView"
     }
 }
 
