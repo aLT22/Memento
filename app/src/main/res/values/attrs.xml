@@ -2,14 +2,24 @@
 <resources>
     <!-- Add Information View -->
     <declare-styleable name="AddInformationView">
-        <attr name="aiv_title" format="string"/>
-        <attr name="aiv_description" format="string"/>
-        <attr name="aiv_hint" format="string"/>
+        <attr name="aiv_title" format="string" />
+        <attr name="aiv_description" format="string" />
+        <attr name="aiv_hint" format="string" />
     </declare-styleable>
 
     <!-- Selection Item View -->
     <declare-styleable name="SelectionItemView">
-        <attr name="siv_title" format="string"/>
-        <attr name="siv_checked" format="boolean"/>
+        <attr name="siv_title" format="string" />
+        <attr name="siv_checked" format="boolean" />
+    </declare-styleable>
+
+    <!-- Selection Container View -->
+    <declare-styleable name="SelectionContainerView">
+        <!-- Count of options -->
+        <attr name="scv_count" format="integer" />
+        <!-- Set selected option by default (starts from 0..) -->
+        <attr name="scv_selected_by_default" format="integer" />
+        <!-- You should use Array<String> by default -->
+        <attr name="scv_titles" />
     </declare-styleable>
 </resources>
