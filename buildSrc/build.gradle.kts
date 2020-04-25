@@ -1,8 +1,8 @@
 plugins {
-    `kotlin-dsl`
+  `kotlin-dsl`
 }
 
 //Need for Kotlin scripting compiler
 repositories {
-    jcenter()
+  jcenter()
 }
